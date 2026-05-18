@@ -327,6 +327,11 @@ const path = require('path');
 // ─── Serve Frontend for Production ──────────────────────────────────────────
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
+// Explicit route for favicon to prevent 503 errors and catchall handling
+app.get('/favicon.ico', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist/favicon.ico'));
+});
+
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get(/.*/, (req, res) => {
