@@ -136,6 +136,16 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'Server is running', db: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected' });
 });
 
+// Debug Environment Variables
+app.get('/api/debug-env', (req, res) => {
+    res.json({
+        hasMongoUri: !!process.env.MONGODB_URI,
+        uriLength: process.env.MONGODB_URI ? process.env.MONGODB_URI.length : 0,
+        startsWithMongo: process.env.MONGODB_URI ? process.env.MONGODB_URI.startsWith('mongo') : false,
+        cloudinaryConfigured: !!process.env.CLOUDINARY_CLOUD_NAME
+    });
+});
+
 // ─── User Auth Routes ───────────────────────────────────────────────────────
 app.post('/api/auth/register', async (req, res) => {
     try {
