@@ -2242,8 +2242,8 @@ const ContactPage = ({ onBack }) => {
               </div>
             ),
             label: 'VISIT SHOWROOM',
-            title: 'No 55 A, Near Menatchi Amman Temple, West Tower Street, Madurai West, Madurai-625001, Tamil Nadu',
-            sub: 'Madurai – 625 004'
+            title: '212, W Masi St, Periyar, Madurai Main',
+            sub: 'Madurai, Tamil Nadu 625001'
           },
           {
             icon: (
@@ -2447,8 +2447,8 @@ const ContactPage = ({ onBack }) => {
             {/* Google Map Embed */}
             <div style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 8px 30px rgba(0,0,0,0.1)', border: '1px solid #e2e8f0' }}>
               <iframe
-                title="SRI SAI Gifts Showroom – Pasumalai, Madurai"
-                src="https://maps.google.com/maps?q=Thiruparankundram,+Madurai&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                title="SRI SAI Gifts Showroom – Madurai Main, Madurai"
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3930.213234492701!2d78.1131705750301!3d9.91619109018498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOcKwNTQnNTguMyJOIDc4wrAwNic1Ni43IkU!5e0!3m2!1sen!2sin!4v1779106304746!5m2!1sen!2sin"
                 width="100%"
                 height="290"
                 style={{ border: 0, display: 'block' }}
@@ -2469,8 +2469,8 @@ const ContactPage = ({ onBack }) => {
               </div>
               <div>
                 <h3 style={{ color: 'white', fontWeight: '800', fontSize: '1.15rem', marginBottom: '8px' }}>SRI SAI Gifts Showroom</h3>
-                <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginBottom: '4px' }}>No 55 A, Near Menatchi Amman Temple, West Tower Street, Madurai West, Madurai-625001, Tamil Nadu</p>
-                <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Madurai – 625 004, Tamil Nadu</p>
+                <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginBottom: '4px' }}>212, W Masi St, Periyar, Madurai Main</p>
+                <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Madurai, Tamil Nadu 625001</p>
               </div>
             </div>
 
@@ -2626,9 +2626,7 @@ const Footer = ({ onHomeClick, onProductsClick, onAboutClick, onContactClick }) 
             <ul className="footer-links" style={{ color: '#f8fafc' }}>
               <li className="footer-link-item" style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '16px' }}>
                 <MapPin size={20} color="#f59e0b" style={{ flexShrink: 0 }} />
-                No 55 A, Near Menatchi Amman Temple, West Tower Street, Madurai West, Madurai-625001, Tamil Nadu
-
-Madurai – 625004, Tamil Nadu
+                212, W Masi St, Periyar, Madurai Main, Madurai, Tamil Nadu 625001
               </li>
               <li className="footer-link-item" style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '16px' }}>
                 <Phone size={20} color="#f59e0b" style={{ flexShrink: 0 }} />
