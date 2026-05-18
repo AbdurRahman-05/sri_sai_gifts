@@ -17,8 +17,8 @@ app.use(express.json());
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('✅ Connected to MongoDB'))
     .catch(err => {
-        console.error('❌ MongoDB connection error:', err.message);
-        process.exit(1);
+        console.error('❌ MongoDB connection error. Please check your MONGODB_URI environment variable:', err.message);
+        // Removed process.exit(1) to prevent the server from crashing completely and throwing 503s
     });
 
 // ─── Product Schema & Model ───────────────────────────────────────────────────
