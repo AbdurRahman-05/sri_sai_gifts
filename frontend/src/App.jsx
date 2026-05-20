@@ -4084,10 +4084,17 @@ function App() {
     const fetchProducts = async () => {
       try {
         const res = await fetch('/api/products', { cache: 'no-store' });
+        if (!res.ok) {
+          throw new Error(`Server returned status ${res.status}`);
+        }
         const data = await res.json();
-        const normalized = data.map(p => ({ ...p, id: p._id || p.id }));
-        setProducts(normalized);
-        sessionStorage.setItem('elysian_products_cache', JSON.stringify(normalized));
+        if (Array.isArray(data)) {
+          const normalized = data.map(p => ({ ...p, id: p._id || p.id }));
+          setProducts(normalized);
+          sessionStorage.setItem('elysian_products_cache', JSON.stringify(normalized));
+        } else {
+          console.error('Expected array of products, but received:', data);
+        }
       } catch (err) {
         console.error('Error fetching products:', err);
       } finally {
