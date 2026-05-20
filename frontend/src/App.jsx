@@ -150,12 +150,12 @@ const AngledCard = ({
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/70 p-8 flex flex-col justify-center items-center text-center transition-all duration-500">
-          <span style={{ color: '#f59e0b', opacity: isHovered ? 1 : 0 }} className="font-bold text-xs tracking-widest uppercase mb-2 transition-all duration-500 transform translate-y-0 pointer-events-none drop-shadow-md">Collections</span>
+          <span style={{ color: '#ff003c', opacity: isHovered ? 1 : 0 }} className="font-bold text-xs tracking-widest uppercase mb-2 transition-all duration-500 transform translate-y-0 pointer-events-none drop-shadow-md">Collections</span>
           <h3 className="text-white text-2xl font-bold mb-3 transition-colors duration-300 drop-shadow-xl">{item.title}</h3>
           <div style={{ opacity: isHovered ? 1 : 0 }} className="flex items-center justify-center gap-3 transition-all duration-500 delay-100 transform translate-y-0 pointer-events-none">
             <span className="text-white/90 text-sm font-medium">{item.count}</span>
-            <div style={{ backgroundColor: '#f59e0b' }} className="w-10 h-[1px] opacity-50" />
-            <span style={{ color: '#f59e0b' }} className="text-xs font-bold uppercase tracking-wider drop-shadow-md">Explore</span>
+            <div style={{ backgroundColor: '#ff003c' }} className="w-10 h-[1px] opacity-50" />
+            <span style={{ color: '#ff003c' }} className="text-xs font-bold uppercase tracking-wider drop-shadow-md">Explore</span>
           </div>
         </div>
       </div>
@@ -293,7 +293,7 @@ const optimizeCloudinaryUrl = (url, width = 800, quality = 'auto') => {
   return url.replace('/upload/', `/upload/w_${width},q_${quality},f_auto,c_limit/`);
 };
 
-const Navbar = ({ onSignInClick, onHomeClick, onProductsClick, onAboutClick, currentUser, onLogout, onAccountClick, onWishlistClick, onCartClick, onContactClick, cartAnimation }) => {
+const Navbar = ({ onSignInClick, onHomeClick, onProductsClick, onAboutClick, onCatalogueClick, currentUser, onLogout, onAccountClick, onWishlistClick, onCartClick, onContactClick, cartAnimation }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -328,7 +328,7 @@ const Navbar = ({ onSignInClick, onHomeClick, onProductsClick, onAboutClick, cur
             <a href="#home" className="nav-link" onClick={onHomeClick}>Home</a>
             <a href="#products" className="nav-link" onClick={(e) => { e.preventDefault(); onProductsClick && onProductsClick(); }}>Products</a>
             <a href="#about" className="nav-link" onClick={(e) => { e.preventDefault(); onAboutClick(); }}>About</a>
-            <a href="#catalogue" className="nav-link">Catalogue</a>
+            <a href="#catalogue" className="nav-link" onClick={(e) => { e.preventDefault(); onCatalogueClick && onCatalogueClick(); }}>Catalogue</a>
             <a href="#contact" className="nav-link" onClick={(e) => { e.preventDefault(); onContactClick && onContactClick(); }}>Contact</a>
           </div>
 
@@ -371,7 +371,7 @@ const Navbar = ({ onSignInClick, onHomeClick, onProductsClick, onAboutClick, cur
                   onClick={onAccountClick}
                   className="desktop-user-avatar"
                 >
-                  <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#0f172a', color: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 'bold' }}>
+                  <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#0f172a', color: '#ff003c', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 'bold' }}>
                     {currentUser.fullName[0].toUpperCase()}
                   </div>
                   <span style={{ fontSize: '0.8rem', fontWeight: '700', color: '#0f172a' }}>{currentUser.fullName.split(' ')[0]}</span>
@@ -393,8 +393,8 @@ const Navbar = ({ onSignInClick, onHomeClick, onProductsClick, onAboutClick, cur
         <div className="mobile-nav-links">
           <a href="#home" className="mobile-nav-link" onClick={() => { onHomeClick(); setIsMenuOpen(false); }}>Home</a>
           <a href="#products" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onProductsClick && onProductsClick(); setIsMenuOpen(false); }}>Products</a>
-          <a href="#about" className="mobile-nav-link" onClick={() => { onAboutClick(); setIsMenuOpen(false); }}>About</a>
-          <a href="#catalogue" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Catalogue</a>
+          <a href="#about" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onAboutClick(); setIsMenuOpen(false); }}>About</a>
+          <a href="#catalogue" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onCatalogueClick && onCatalogueClick(); setIsMenuOpen(false); }}>Catalogue</a>
           <a href="#contact" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onContactClick && onContactClick(); setIsMenuOpen(false); }}>Contact</a>
           <div className="mobile-menu-actions">
             <div style={{ display: 'flex', gap: '24px', marginBottom: '24px' }}>
@@ -409,7 +409,7 @@ const Navbar = ({ onSignInClick, onHomeClick, onProductsClick, onAboutClick, cur
             </div>
             {currentUser ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <button className="btn-signin" style={{ width: '100%', background: 'rgba(245, 158, 11, 0.1)', color: '#0f172a' }} onClick={() => { onAccountClick(); setIsMenuOpen(false); }}>My Account</button>
+                <button className="btn-signin" style={{ width: '100%', background: 'rgba(255, 0, 60, 0.1)', color: '#0f172a' }} onClick={() => { onAccountClick(); setIsMenuOpen(false); }}>My Account</button>
                 <button className="btn-signin" style={{ width: '100%', background: '#ef4444', border: 'none' }} onClick={() => { onLogout(); setIsMenuOpen(false); }}>Sign Out</button>
               </div>
             ) : (
@@ -705,7 +705,7 @@ const CheckoutModal = ({ isOpen, onClose, onConfirm, total }) => {
             marginTop: '8px',
             padding: '16px',
             borderRadius: '12px',
-            background: '#f59e0b',
+            background: '#ff003c',
             color: 'white',
             border: 'none',
             fontWeight: '700',
@@ -717,8 +717,8 @@ const CheckoutModal = ({ isOpen, onClose, onConfirm, total }) => {
             gap: '10px',
             transition: 'all 0.2s'
           }}
-            onMouseOver={e => e.currentTarget.style.background = '#d97706'}
-            onMouseOut={e => e.currentTarget.style.background = '#f59e0b'}
+            onMouseOver={e => e.currentTarget.style.background = '#d60032'}
+            onMouseOut={e => e.currentTarget.style.background = '#ff003c'}
           >
             Send Order on WhatsApp <ArrowRight size={20} />
           </button>
@@ -751,7 +751,7 @@ const AccountModal = ({ isOpen, onClose, currentUser, products }) => {
       >
         <button className="modal-close" onClick={onClose}><X /></button>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: '#0f172a', color: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', fontSize: '2rem', fontWeight: 'bold' }}>
+          <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: '#0f172a', color: '#ff003c', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', fontSize: '2rem', fontWeight: 'bold' }}>
             {currentUser.fullName ? currentUser.fullName[0].toUpperCase() : 'U'}
           </div>
           <h2 style={{ fontSize: '1.75rem', marginBottom: '4px' }}>{currentUser.fullName}</h2>
@@ -779,7 +779,7 @@ const AccountModal = ({ isOpen, onClose, currentUser, products }) => {
           </div>
 
           <div style={{ background: '#f8fafc', padding: '20px', borderRadius: '16px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', color: '#f59e0b' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', color: '#ff003c' }}>
               <ShoppingCart size={20} />
               <h3 style={{ fontSize: '1.1rem', fontWeight: '700' }}>Cart</h3>
             </div>
@@ -945,7 +945,7 @@ const Hero = () => {
               minWidth: '110px',
             }}
           >
-            <div style={{ fontSize: '1.8rem', fontWeight: '800', color: '#f59e0b', lineHeight: 1, marginBottom: '6px', fontFamily: "'Outfit', sans-serif" }}>{stat.value}</div>
+            <div style={{ fontSize: '1.8rem', fontWeight: '800', color: '#ff003c', lineHeight: 1, marginBottom: '6px', fontFamily: "'Outfit', sans-serif" }}>{stat.value}</div>
             <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1.5px' }}>{stat.label}</div>
           </motion.div>
         ))}
@@ -965,7 +965,7 @@ const Hero = () => {
         fontWeight: '600',
         fontFamily: "'Outfit', sans-serif"
       }}>
-        <span style={{ color: '#f59e0b', fontSize: '1.2rem', fontWeight: '800' }}>{String(currentSlide + 1).padStart(2, '0')}</span>
+        <span style={{ color: '#ff003c', fontSize: '1.2rem', fontWeight: '800' }}>{String(currentSlide + 1).padStart(2, '0')}</span>
         <span style={{ width: '24px', height: '1px', background: 'rgba(255,255,255,0.3)', display: 'inline-block' }} />
         <span>{String(slides.length).padStart(2, '0')}</span>
       </div>
@@ -1100,8 +1100,8 @@ const Categories = ({ onCategoryClick, products }) => {
   return (
     <section className="section-padding section-bg-accent" id="catalog" style={{ overflow: 'hidden', position: 'relative' }}>
       {/* Decorative background elements */}
-      <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(245,158,11,0.06) 0%, transparent 70%)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', bottom: '-60px', left: '-60px', width: '250px', height: '250px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 70%)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255, 0, 60,0.06) 0%, transparent 70%)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', bottom: '-60px', left: '-60px', width: '250px', height: '250px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255, 0, 60,0.05) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
       <div className="container-fluid" style={{ maxWidth: '100%', padding: '0 2rem' }}>
         {/* Enhanced heading */}
@@ -1113,7 +1113,7 @@ const Categories = ({ onCategoryClick, products }) => {
         >
           <span style={{
             display: 'inline-block',
-            background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+            background: 'linear-gradient(135deg, #ff003c 0%, #d60032 100%)',
             color: 'white',
             padding: '6px 20px',
             borderRadius: '50px',
@@ -1126,9 +1126,9 @@ const Categories = ({ onCategoryClick, products }) => {
           }}>Curated Collections</span>
           <h2 style={{ fontSize: '3.2rem', marginBottom: '16px', color: '#0f172a' }}>Shop by Category</h2>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '8px' }}>
-            <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg, transparent, #f59e0b)' }} />
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f59e0b' }} />
-            <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg, #f59e0b, transparent)' }} />
+            <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg, transparent, #ff003c)' }} />
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ff003c' }} />
+            <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg, #ff003c, transparent)' }} />
           </div>
           <p style={{ fontSize: '1rem', color: '#64748b', maxWidth: '500px', margin: '0 auto', fontFamily: "'Outfit', sans-serif" }}>Explore our handpicked premium gift categories</p>
         </motion.div>
@@ -1226,11 +1226,11 @@ const ProductDetails = ({ product, onBack, onLikeClick, onCartClick, onBuyNowCli
                       aspectRatio: '1/1',
                       borderRadius: '12px',
                       overflow: 'hidden',
-                      border: activeImage === img ? '2px solid #f59e0b' : '2px solid transparent',
+                      border: activeImage === img ? '2px solid #ff003c' : '2px solid transparent',
                       cursor: 'pointer',
                       background: 'white',
                       padding: '4px',
-                      boxShadow: activeImage === img ? '0 0 0 1px #f59e0b' : '0 2px 4px rgba(0,0,0,0.05)',
+                      boxShadow: activeImage === img ? '0 0 0 1px #ff003c' : '0 2px 4px rgba(0,0,0,0.05)',
                       transition: 'all 0.2s'
                     }}
                   >
@@ -1246,7 +1246,7 @@ const ProductDetails = ({ product, onBack, onLikeClick, onCartClick, onBuyNowCli
             {/* Category breadcrumb */}
             {(mainCat || product.category) && (
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px', flexWrap: 'wrap' }}>
-                {mainCat && <span style={{ background: '#fef3c7', color: '#d97706', fontSize: '0.75rem', fontWeight: '700', padding: '3px 10px', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{mainCat}</span>}
+                {mainCat && <span style={{ background: '#fef3c7', color: '#d60032', fontSize: '0.75rem', fontWeight: '700', padding: '3px 10px', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{mainCat}</span>}
                 {mainCat && product.category && <span style={{ color: '#cbd5e1' }}>›</span>}
                 {product.category && <span style={{ background: '#f1f5f9', color: '#475569', fontSize: '0.75rem', fontWeight: '600', padding: '3px 10px', borderRadius: '20px' }}>{product.category}</span>}
               </div>
@@ -1263,7 +1263,7 @@ const ProductDetails = ({ product, onBack, onLikeClick, onCartClick, onBuyNowCli
                   const rating = product.ratings || 4.8;
                   const filled = star <= Math.floor(rating);
                   const half = !filled && star <= rating + 0.5;
-                  return <Star key={star} size={18} fill={filled ? '#f59e0b' : 'none'} color={filled || half ? '#f59e0b' : '#cbd5e1'} />;
+                  return <Star key={star} size={18} fill={filled ? '#ff003c' : 'none'} color={filled || half ? '#ff003c' : '#cbd5e1'} />;
                 })}
               </div>
               <span style={{ fontWeight: '700', color: '#0f172a', fontSize: '0.9rem' }}>{product.ratings || 4.8}</span>
@@ -1272,7 +1272,7 @@ const ProductDetails = ({ product, onBack, onLikeClick, onCartClick, onBuyNowCli
 
             {/* Price block */}
             <div style={{ display: 'flex', alignItems: 'flex-end', gap: '14px', marginBottom: '28px', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '2.25rem', fontWeight: '800', color: '#f59e0b', lineHeight: 1 }}>₹{product.price || 0}</span>
+              <span style={{ fontSize: '2.25rem', fontWeight: '800', color: '#ff003c', lineHeight: 1 }}>₹{product.price || 0}</span>
               {comparePrice > (product.price || 0) && (
                 <>
                   <span style={{ fontSize: '1.25rem', color: '#94a3b8', textDecoration: 'line-through', lineHeight: 1.6 }}>₹{comparePrice}</span>
@@ -1287,7 +1287,7 @@ const ProductDetails = ({ product, onBack, onLikeClick, onCartClick, onBuyNowCli
             {product.description && (
               <div style={{ marginBottom: '28px' }}>
                 <h3 style={{ fontSize: '0.85rem', fontWeight: '700', color: '#94a3b8', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Product Description</h3>
-                <p style={{ color: '#475569', fontSize: '1rem', lineHeight: '1.7', margin: 0, paddingLeft: '14px', borderLeft: '3px solid #f59e0b', whiteSpace: 'pre-line' }}>
+                <p style={{ color: '#475569', fontSize: '1rem', lineHeight: '1.7', margin: 0, paddingLeft: '14px', borderLeft: '3px solid #ff003c', whiteSpace: 'pre-line' }}>
                   {product.description}
                 </p>
               </div>
@@ -1302,7 +1302,7 @@ const ProductDetails = ({ product, onBack, onLikeClick, onCartClick, onBuyNowCli
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   {product.features.map((feature, idx) => (
                     <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#475569', fontSize: '0.9rem' }}>
-                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#f59e0b', display: 'inline-block', flexShrink: 0 }} />
+                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#ff003c', display: 'inline-block', flexShrink: 0 }} />
                       {feature}
                     </li>
                   ))}
@@ -1376,7 +1376,7 @@ const ProductDetails = ({ product, onBack, onLikeClick, onCartClick, onBuyNowCli
 
             {/* Trust badges */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '24px' }}>
-              {[{ icon: <Truck size={20} color="#f59e0b" />, label: 'Free Delivery' }, { icon: <Shield size={20} color="#f59e0b" />, label: 'Warranty' }, { icon: <Award size={20} color="#f59e0b" />, label: 'Premium Quality' }].map(({ icon, label }) => (
+              {[{ icon: <Truck size={20} color="#ff003c" />, label: 'Free Delivery' }, { icon: <Shield size={20} color="#ff003c" />, label: 'Warranty' }, { icon: <Award size={20} color="#ff003c" />, label: 'Premium Quality' }].map(({ icon, label }) => (
                 <div key={label} style={{ background: '#fffbf0', padding: '12px 6px', borderRadius: '10px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', border: '1px solid #fde68a' }}>
                   {icon}
                   <span style={{ fontSize: '0.72rem', fontWeight: '700', color: '#0f172a' }}>{label}</span>
@@ -1407,9 +1407,9 @@ const ProductDetails = ({ product, onBack, onLikeClick, onCartClick, onBuyNowCli
               </button>
               <button
                 onClick={() => onBuyNowClick && onBuyNowClick(product, quantity)}
-                style={{ flex: 1.2, padding: '14px', borderRadius: '8px', border: 'none', background: '#f59e0b', color: 'white', fontWeight: '700', fontSize: '0.875rem', cursor: 'pointer', transition: 'background-color 0.2s' }}
-                onMouseOver={e => e.currentTarget.style.backgroundColor = '#d97706'}
-                onMouseOut={e => e.currentTarget.style.backgroundColor = '#f59e0b'}>
+                style={{ flex: 1.2, padding: '14px', borderRadius: '8px', border: 'none', background: '#ff003c', color: 'white', fontWeight: '700', fontSize: '0.875rem', cursor: 'pointer', transition: 'background-color 0.2s' }}
+                onMouseOver={e => e.currentTarget.style.backgroundColor = '#d60032'}
+                onMouseOut={e => e.currentTarget.style.backgroundColor = '#ff003c'}>
                 Buy Now
               </button>
               <button
@@ -1543,8 +1543,8 @@ const FeaturedProducts = ({ products, loading, onProductClick, onCategoryClick, 
         >
           <span style={{
             display: 'inline-block',
-            background: 'rgba(245, 158, 11, 0.1)',
-            color: '#f59e0b',
+            background: 'rgba(255, 0, 60, 0.1)',
+            color: '#ff003c',
             padding: '6px 20px',
             borderRadius: '50px',
             fontSize: '0.8rem',
@@ -1552,14 +1552,14 @@ const FeaturedProducts = ({ products, loading, onProductClick, onCategoryClick, 
             letterSpacing: '2px',
             textTransform: 'uppercase',
             marginBottom: '20px',
-            border: '1px solid rgba(245, 158, 11, 0.2)',
+            border: '1px solid rgba(255, 0, 60, 0.2)',
             fontFamily: "'Outfit', sans-serif"
           }}>Premium Range</span>
           <h2 style={{ fontSize: '3.5rem', marginBottom: '16px', color: 'white', fontFamily: "'Playfair Display', serif" }}>Explore Our Collection</h2>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '20px' }}>
-            <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg, transparent, #f59e0b)' }} />
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f59e0b' }} />
-            <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg, #f59e0b, transparent)' }} />
+            <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg, transparent, #ff003c)' }} />
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ff003c' }} />
+            <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg, #ff003c, transparent)' }} />
           </div>
           <p style={{ color: 'rgba(255,255,255,0.6)', maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem' }}>Discover our wide variety of customizable corporate and personal gifts</p>
         </motion.div>
@@ -1618,13 +1618,13 @@ const FeaturedProducts = ({ products, loading, onProductClick, onCategoryClick, 
                     className="view-all-btn"
                     style={{
                       display: 'flex', alignItems: 'center', gap: '6px',
-                      background: 'transparent', border: '2px solid #f59e0b',
-                      color: '#f59e0b', borderRadius: '8px', padding: '8px 18px',
+                      background: 'transparent', border: '2px solid #ff003c',
+                      color: '#ff003c', borderRadius: '8px', padding: '8px 18px',
                       fontWeight: '700', fontSize: '0.875rem', cursor: 'pointer',
                       transition: 'all 0.2s'
                     }}
-                    onMouseOver={e => { e.currentTarget.style.background = '#f59e0b'; e.currentTarget.style.color = 'white'; }}
-                    onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#f59e0b'; }}
+                    onMouseOver={e => { e.currentTarget.style.background = '#ff003c'; e.currentTarget.style.color = 'white'; }}
+                    onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#ff003c'; }}
                   >
                     View All ({allCategoryProducts.length}) <ArrowRight size={16} />
                   </button>
@@ -1651,13 +1651,13 @@ const FeaturedProducts = ({ products, loading, onProductClick, onCategoryClick, 
                       alignItems: 'center',
                       background: 'white',
                       borderRadius: '16px',
-                      border: '2px dashed #f59e0b',
+                      border: '2px dashed #ff003c',
                       padding: '24px',
                       textAlign: 'center',
                       cursor: 'pointer',
                       minHeight: '380px'
                     }}
-                    whileHover={{ y: -5, boxShadow: '0 10px 15px -3px rgba(245,158,11,0.15)' }}
+                    whileHover={{ y: -5, boxShadow: '0 10px 15px -3px rgba(255, 0, 60,0.15)' }}
                     onClick={() => onCategoryClick && onCategoryClick(category)}
                   >
                     <div style={{
@@ -1669,7 +1669,7 @@ const FeaturedProducts = ({ products, loading, onProductClick, onCategoryClick, 
                       alignItems: 'center',
                       justifyContent: 'center',
                       marginBottom: '20px',
-                      color: '#d97706'
+                      color: '#d60032'
                     }}>
                       <ArrowRight size={32} />
                     </div>
@@ -1683,7 +1683,7 @@ const FeaturedProducts = ({ products, loading, onProductClick, onCategoryClick, 
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '6px',
-                      background: '#f59e0b',
+                      background: '#ff003c',
                       color: 'white',
                       padding: '10px 20px',
                       borderRadius: '8px',
@@ -1734,7 +1734,7 @@ const WishlistPage = ({ products, currentUser, loading, onProductClick, onBack, 
             <div style={{ marginBottom: '24px', color: '#cbd5e1' }}><Heart size={64} /></div>
             <h2 style={{ fontSize: '1.5rem', color: '#0f172a', marginBottom: '12px' }}>Your wishlist is empty</h2>
             <p style={{ color: '#64748b', fontSize: '1.125rem', marginBottom: '24px' }}>Start adding items you love to find them here easily!</p>
-            <button onClick={onBack} style={{ padding: '12px 24px', background: '#f59e0b', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}>Explore Products</button>
+            <button onClick={onBack} style={{ padding: '12px 24px', background: '#ff003c', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}>Explore Products</button>
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '28px' }}>
@@ -1751,11 +1751,11 @@ const WishlistPage = ({ products, currentUser, loading, onProductClick, onBack, 
                       <h3 onClick={() => onProductClick(product)} style={{ fontSize: '1rem', fontWeight: '700', color: '#0f172a', cursor: 'pointer', margin: 0 }}>{product.name}</h3>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span style={{ fontSize: '1.2rem', fontWeight: '800', color: '#f59e0b' }}>₹{product.price}</span>
+                      <span style={{ fontSize: '1.2rem', fontWeight: '800', color: '#ff003c' }}>₹{product.price}</span>
                       {product.comparePrice > product.price && <span style={{ fontSize: '0.85rem', color: '#94a3b8', textDecoration: 'line-through' }}>₹{product.comparePrice}</span>}
                     </div>
                     <div style={{ display: 'flex', gap: '8px', marginTop: 'auto' }}>
-                      <button onClick={() => onCartClick(product)} style={{ flex: 1, padding: '10px', borderRadius: '8px', border: 'none', background: '#f59e0b', color: 'white', fontWeight: '700', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                      <button onClick={() => onCartClick(product)} style={{ flex: 1, padding: '10px', borderRadius: '8px', border: 'none', background: '#ff003c', color: 'white', fontWeight: '700', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
                         <ShoppingCart size={15} /> Add to Cart
                       </button>
                       <button onClick={() => onLikeClick(product)} style={{ padding: '10px 14px', borderRadius: '8px', border: '1px solid #fee2e2', background: '#fff5f5', color: '#ef4444', fontWeight: '700', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }} title="Remove from wishlist">
@@ -1793,7 +1793,7 @@ const CartPage = ({ products, currentUser, loading, onProductClick, onBack, onRe
           <button onClick={onBack} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', padding: '8px 16px', fontWeight: '600', fontSize: '0.875rem', cursor: 'pointer', marginBottom: '24px' }}>
             <ChevronLeft size={18} /> Back to Home
           </button>
-          <span style={{ color: '#f59e0b', fontWeight: '700', textTransform: 'uppercase', fontSize: '0.875rem', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>Your Order</span>
+          <span style={{ color: '#ff003c', fontWeight: '700', textTransform: 'uppercase', fontSize: '0.875rem', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>Your Order</span>
           <h1 style={{ color: 'white', fontSize: '2.5rem', fontFamily: "'Playfair Display', serif", marginBottom: '12px' }}>Shopping Cart</h1>
           <p style={{ color: '#94a3b8', fontSize: '1rem' }}>{loading ? 'Loading...' : `${cartItems.length} item${cartItems.length !== 1 ? 's' : ''} in your cart`}</p>
         </div>
@@ -1807,7 +1807,7 @@ const CartPage = ({ products, currentUser, loading, onProductClick, onBack, onRe
             <div style={{ marginBottom: '24px', color: '#cbd5e1' }}><ShoppingCart size={64} /></div>
             <h2 style={{ fontSize: '1.5rem', color: '#0f172a', marginBottom: '12px' }}>Your cart is empty</h2>
             <p style={{ color: '#64748b', fontSize: '1.125rem', marginBottom: '24px' }}>Discover our premium gift collections and start adding items!</p>
-            <button onClick={onBack} style={{ padding: '12px 24px', background: '#f59e0b', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}>Shop Now</button>
+            <button onClick={onBack} style={{ padding: '12px 24px', background: '#ff003c', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}>Shop Now</button>
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 320px', gap: '32px', alignItems: 'start' }}>
@@ -1823,7 +1823,7 @@ const CartPage = ({ products, currentUser, loading, onProductClick, onBack, onRe
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <p style={{ fontSize: '0.72rem', color: '#94a3b8', fontWeight: '600', textTransform: 'uppercase', marginBottom: '3px' }}>{p.category}</p>
                       <h3 onClick={() => onProductClick(p)} style={{ fontSize: '0.95rem', fontWeight: '700', color: '#0f172a', marginBottom: '6px', cursor: 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</h3>
-                      <p style={{ fontSize: '1.05rem', fontWeight: '800', color: '#f59e0b', margin: 0 }}>₹{(p.price * item.quantity).toLocaleString()} <span style={{ fontSize: '0.78rem', color: '#94a3b8', fontWeight: '400' }}>( ₹{p.price} × {item.quantity} )</span></p>
+                      <p style={{ fontSize: '1.05rem', fontWeight: '800', color: '#ff003c', margin: 0 }}>₹{(p.price * item.quantity).toLocaleString()} <span style={{ fontSize: '0.78rem', color: '#94a3b8', fontWeight: '400' }}>( ₹{p.price} × {item.quantity} )</span></p>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
                       <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #e2e8f0', borderRadius: '8px', overflow: 'hidden' }}>
@@ -1853,11 +1853,11 @@ const CartPage = ({ products, currentUser, loading, onProductClick, onBack, onRe
                 </div>
                 <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '12px', display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem', fontWeight: '800', color: '#0f172a' }}>
                   <span>Total</span>
-                  <span style={{ color: '#f59e0b' }}>₹{total.toLocaleString()}</span>
+                  <span style={{ color: '#ff003c' }}>₹{total.toLocaleString()}</span>
                 </div>
               </div>
               {subtotal < 999 && <p style={{ fontSize: '0.78rem', color: '#92400e', background: '#fffbeb', border: '1px solid #fde68a', borderRadius: '8px', padding: '8px 12px', marginBottom: '16px' }}>Add ₹{(999 - subtotal).toLocaleString()} more for FREE delivery!</p>}
-              <button onClick={() => onCheckout(cartItems)} style={{ width: '100%', padding: '14px', background: '#f59e0b', color: 'white', border: 'none', borderRadius: '10px', fontWeight: '700', fontSize: '1rem', cursor: 'pointer', marginBottom: '10px' }}>Proceed to Checkout →</button>
+              <button onClick={() => onCheckout(cartItems)} style={{ width: '100%', padding: '14px', background: '#ff003c', color: 'white', border: 'none', borderRadius: '10px', fontWeight: '700', fontSize: '1rem', cursor: 'pointer', marginBottom: '10px' }}>Proceed to Checkout →</button>
               <button onClick={onBack} style={{ width: '100%', padding: '11px', background: 'transparent', color: '#64748b', border: '1px solid #e2e8f0', borderRadius: '10px', fontWeight: '600', fontSize: '0.875rem', cursor: 'pointer' }}>Continue Shopping</button>
             </div>
           </div>
@@ -1895,7 +1895,7 @@ const CategoryPage = ({ category, products, loading, onProductClick, onBack, onL
   return (
     <div className="collection-bg" style={{ minHeight: '100vh' }}>
       {/* Header */}
-      <div style={{ background: 'rgba(0,0,0,0.3)', borderBottom: '1px solid rgba(245,158,11,0.15)', padding: '160px 0 40px' }}>
+      <div style={{ background: 'rgba(0,0,0,0.3)', borderBottom: '1px solid rgba(255, 0, 60,0.15)', padding: '160px 0 40px' }}>
         <div className="container">
           <button
             onClick={onBack}
@@ -1908,7 +1908,7 @@ const CategoryPage = ({ category, products, loading, onProductClick, onBack, onL
           >
             <ChevronLeft size={18} /> Back to Home
           </button>
-          <span style={{ color: '#f59e0b', fontWeight: '700', textTransform: 'uppercase', fontSize: '0.875rem', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>Collections</span>
+          <span style={{ color: '#ff003c', fontWeight: '700', textTransform: 'uppercase', fontSize: '0.875rem', letterSpacing: '2px', display: 'block', marginBottom: '8px' }}>Collections</span>
           <h1 style={{ color: 'white', fontSize: '2.5rem', fontFamily: "'Playfair Display', serif", marginBottom: '12px' }}>{category}</h1>
           <p style={{ color: '#94a3b8', fontSize: '1rem' }}>
             {loading ? 'Loading...' : `${categoryProducts.length} products found`}
@@ -1923,7 +1923,7 @@ const CategoryPage = ({ category, products, loading, onProductClick, onBack, onL
         ) : categoryProducts.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '80px 0' }}>
             <p style={{ color: '#64748b', fontSize: '1.125rem' }}>No products found in this category yet.</p>
-            <button onClick={onBack} style={{ marginTop: '16px', padding: '12px 24px', background: '#f59e0b', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}>Back to Home</button>
+            <button onClick={onBack} style={{ marginTop: '16px', padding: '12px 24px', background: '#ff003c', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}>Back to Home</button>
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '28px' }}>
@@ -1962,31 +1962,26 @@ const AboutPage = ({ onBack }) => {
   ];
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#fff', color: '#0f172a', fontFamily: "'Outfit', sans-serif" }}>
+    <div className="about-page-wrapper">
       {/* Immersive Hero */}
-      <section style={{ height: '90vh', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-        <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: 'url("/images/about_craftsmanship.png")',
-          backgroundSize: 'cover', backgroundPosition: 'center',
-          transform: 'scale(1.1)', filter: 'brightness(0.4)'
-        }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(15,23,42,0.8), transparent, rgba(15,23,42,0.9))' }} />
+      <section className="about-hero">
+        <div className="about-hero-bg" />
+        <div className="about-hero-overlay" />
 
-        <div className="container" style={{ position: 'relative', zIndex: 10, textAlign: 'center' }}>
+        <div className="container about-hero-container">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
           >
-            <span style={{ color: '#f59e0b', fontWeight: '800', letterSpacing: '6px', textTransform: 'uppercase', fontSize: '0.85rem', marginBottom: '20px', display: 'block' }}>Since 2010</span>
-            <h1 style={{ fontSize: 'clamp(3rem, 10vw, 7rem)', fontWeight: '950', color: '#fff', lineHeight: 0.9, letterSpacing: '-2px', marginBottom: '40px' }}>
+            <span className="about-hero-tagline">Since 2010</span>
+            <h1 className="about-hero-title">
               REDEFINING <br />
-              <span style={{ color: '#f59e0b' }}>GIFTING.</span>
+              <span className="text-accent">GIFTING.</span>
             </h1>
-            <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-              <div style={{ width: '40px', height: '2px', backgroundColor: '#f59e0b', marginTop: '12px' }} />
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.2rem', maxWidth: '600px', lineHeight: 1.5 }}>
+            <div className="about-hero-desc-wrapper">
+              <div className="about-hero-line" />
+              <p className="about-hero-desc">
                 At Sri Sai Gifts, we craft products that don't just carry items—they carry your brand's reputation.
               </p>
             </div>
@@ -1994,55 +1989,48 @@ const AboutPage = ({ onBack }) => {
         </div>
 
         {/* Floating Background Text */}
-        <div style={{
-          position: 'absolute', bottom: '10%', left: '-5%',
-          fontSize: '15vw', fontWeight: '900', color: 'rgba(255,255,255,0.03)',
-          whiteSpace: 'nowrap', pointerEvents: 'none', zIndex: 1
-        }}>
+        <div className="about-hero-floating-text">
           QUALITY CRAFT
         </div>
       </section>
 
       {/* Our Philosophy - Split Section */}
-      <section className="about-section-padding" style={{ overflow: 'hidden' }}>
+      <section className="about-section-padding philosophy-section">
         <div className="container">
           <div className="about-philosophy-grid">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              style={{ position: 'relative' }}
+              className="about-philosophy-media"
             >
-              <div style={{ position: 'relative', zIndex: 2, borderRadius: '40px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.1)' }}>
-                <img src="/images/about_gifting.png" alt="Corporate Gifting" style={{ width: '100%', display: 'block' }} />
+              <div className="about-philosophy-img-wrapper">
+                <img src="/images/about_gifting.png" alt="Corporate Gifting" />
               </div>
-              <div style={{
-                position: 'absolute', top: '-40px', left: '-40px',
-                width: '180px', height: '180px', background: 'rgba(245,158,11,0.1)',
-                borderRadius: '50%', filter: 'blur(40px)', zIndex: 1
-              }} />
+              <div className="about-philosophy-glow" />
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="about-philosophy-content"
             >
-              <span style={{ color: '#f59e0b', fontWeight: '700', fontSize: '0.9rem', marginBottom: '12px', display: 'block' }}>OUR PHILOSOPHY</span>
-              <h2 className="about-philosophy-title" style={{ fontWeight: '900', lineHeight: 1.1, marginBottom: '32px' }}>
-                Every Brand Tells a <span style={{ color: '#f59e0b' }}>Story.</span> We Help You Tell It.
+              <span className="about-philosophy-label">OUR PHILOSOPHY</span>
+              <h2 className="about-philosophy-title">
+                Every Brand Tells a <span className="text-accent">Story.</span> We Help You Tell It.
               </h2>
-              <p className="about-philosophy-text" style={{ color: '#475569', lineHeight: 1.8, marginBottom: '32px' }}>
+              <p className="about-philosophy-text">
                 We believe that every corporate gift is a silent ambassador for your business. That's why we meticulously combine modern design with industrial durability, ensuring that every bag and accessory we produce leaves a lasting mark of professionalism.
               </p>
 
               <div className="about-stats-grid">
                 {stats.map((s, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                    <div style={{ color: '#f59e0b', background: 'rgba(245,158,11,0.1)', padding: '12px', borderRadius: '12px' }}>
+                  <div key={i} className="about-stats-item">
+                    <div className="about-stats-icon-wrapper">
                       {React.cloneElement(s.icon, { size: 20 })}
                     </div>
-                    <span style={{ fontWeight: '700', fontSize: '0.95rem' }}>{s.label}</span>
+                    <span className="about-stats-label">{s.label}</span>
                   </div>
                 ))}
               </div>
@@ -2052,11 +2040,11 @@ const AboutPage = ({ onBack }) => {
       </section>
 
       {/* Bento Grid - Why Choose Us */}
-      <section className="about-section-padding" style={{ backgroundColor: '#0f172a', color: '#fff' }}>
+      <section className="about-section-padding why-choose-section">
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <h2 className="about-section-title">The Sri Sai <span style={{ color: '#f59e0b' }}>Advantage</span></h2>
-            <p style={{ color: '#94a3b8', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>
+          <div className="about-section-header">
+            <h2 className="about-section-title">The Sri Sai <span className="text-accent">Advantage</span></h2>
+            <p className="about-section-subtitle">
               What sets us apart in the world of corporate manufacturing and bespoke gifting.
             </p>
           </div>
@@ -2072,9 +2060,9 @@ const AboutPage = ({ onBack }) => {
                 whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.05)' }}
                 className={`about-why-choose-card ${item.grid === "span-2" ? "span-2" : "span-1"}`}
               >
-                <div style={{ color: '#f59e0b', marginBottom: '24px' }}>{item.icon}</div>
-                <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '12px' }}>{item.title}</h3>
-                <p style={{ color: '#94a3b8', lineHeight: 1.6 }}>{item.desc}</p>
+                <div className="about-choose-icon">{item.icon}</div>
+                <h3 className="about-choose-title">{item.title}</h3>
+                <p className="about-choose-desc">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -2082,10 +2070,10 @@ const AboutPage = ({ onBack }) => {
       </section>
 
       {/* Product Universe */}
-      <section className="about-section-padding">
+      <section className="about-section-padding spectrum-section">
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <span style={{ color: '#f59e0b', fontWeight: '800', letterSpacing: '4px', fontSize: '0.8rem', display: 'block', marginBottom: '16px' }}>OUR UNIVERSE</span>
+          <div className="about-section-header">
+            <span className="about-spectrum-label">OUR UNIVERSE</span>
             <h2 className="about-spectrum-title">Product Spectrum</h2>
           </div>
 
@@ -2098,19 +2086,10 @@ const AboutPage = ({ onBack }) => {
                 viewport={{ once: true }}
                 className="about-spectrum-card"
               >
-                <h3 style={{ fontSize: '2.5rem', fontWeight: '900', marginBottom: '40px', color: '#1e293b' }}>{cat.title}</h3>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                <h3 className="about-spectrum-card-title">{cat.title}</h3>
+                <div className="about-spectrum-tags">
                   {cat.items.map((item, j) => (
-                    <span key={j} style={{
-                      backgroundColor: '#fff',
-                      color: '#475569',
-                      padding: '12px 24px',
-                      borderRadius: '100px',
-                      fontSize: '0.9rem',
-                      fontWeight: '700',
-                      border: '1px solid #e2e8f0',
-                      boxShadow: '0 4px 6px rgba(0,0,0,0.02)'
-                    }}>
+                    <span key={j} className="about-spectrum-tag">
                       {item}
                     </span>
                   ))}
@@ -2125,14 +2104,10 @@ const AboutPage = ({ onBack }) => {
       <section className="about-cta-section">
         <div className="container">
           <div className="about-cta-box">
-            <div style={{
-              position: 'absolute', top: '-100px', right: '-100px',
-              width: '300px', height: '300px', background: 'rgba(255,255,255,0.1)',
-              borderRadius: '50%', filter: 'blur(80px)'
-            }} />
+            <div className="about-cta-glow" />
 
             <h2 className="about-cta-title">Let's Create Something <br /> Extraordinary Together.</h2>
-            <p className="about-cta-desc" style={{ color: 'rgba(255,255,255,0.9)', maxWidth: '700px', margin: '0 auto 48px', lineHeight: 1.6 }}>
+            <p className="about-cta-desc">
               From startups to global corporations, we provide products that represent your business with style, quality, and professionalism.
             </p>
             <motion.button
@@ -2164,7 +2139,7 @@ const ContactPage = ({ onBack }) => {
         overflow: 'hidden'
       }}>
         {/* Background glow blobs */}
-        <div style={{ position: 'absolute', top: '20%', left: '10%', width: '300px', height: '300px', background: 'rgba(245,158,11,0.08)', borderRadius: '50%', filter: 'blur(80px)' }} />
+        <div style={{ position: 'absolute', top: '20%', left: '10%', width: '300px', height: '300px', background: 'rgba(255, 0, 60,0.08)', borderRadius: '50%', filter: 'blur(80px)' }} />
         <div style={{ position: 'absolute', bottom: '10%', right: '10%', width: '250px', height: '250px', background: 'rgba(99,102,241,0.08)', borderRadius: '50%', filter: 'blur(80px)' }} />
 
         <motion.div
@@ -2186,7 +2161,7 @@ const ContactPage = ({ onBack }) => {
           </div>
 
           <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: '900', color: 'white', lineHeight: 1.1, marginBottom: '20px' }}>
-            Let's <span style={{ color: '#f59e0b' }}>Connect</span>
+            Let's <span style={{ color: '#ff003c' }}>Connect</span>
           </h1>
 
           <p style={{ color: '#94a3b8', fontSize: '1.1rem', maxWidth: '520px', margin: '0 auto', lineHeight: 1.7 }}>
@@ -2201,7 +2176,7 @@ const ContactPage = ({ onBack }) => {
           {
             icon: (
               <div style={{ width: 48, height: 48, borderRadius: '12px', background: '#fff9ed', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <MapPin size={24} color="#f59e0b" />
+                <MapPin size={24} color="#ff003c" />
               </div>
             ),
             label: 'VISIT SHOWROOM',
@@ -2271,7 +2246,7 @@ const ContactPage = ({ onBack }) => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <p style={{ color: '#f59e0b', fontSize: '0.75rem', fontWeight: '700', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '10px' }}>SEND A MESSAGE</p>
+            <p style={{ color: '#ff003c', fontSize: '0.75rem', fontWeight: '700', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '10px' }}>SEND A MESSAGE</p>
             <h2 style={{ fontSize: '2rem', fontWeight: '900', color: '#0f172a', marginBottom: '10px', lineHeight: 1.2 }}>We'll Reply Within 24 Hours</h2>
             <p style={{ color: '#64748b', fontSize: '0.95rem', marginBottom: '28px', lineHeight: 1.7 }}>
               Fill in the form below and our team will get back to you as soon as possible.
@@ -2300,7 +2275,7 @@ const ContactPage = ({ onBack }) => {
                       border: '1.5px solid #e2e8f0', fontSize: '0.9rem', color: '#0f172a',
                       outline: 'none', background: 'white', fontFamily: 'inherit'
                     }}
-                    onFocus={e => e.target.style.borderColor = '#f59e0b'}
+                    onFocus={e => e.target.style.borderColor = '#ff003c'}
                     onBlur={e => e.target.style.borderColor = '#e2e8f0'}
                   />
                 </div>
@@ -2317,7 +2292,7 @@ const ContactPage = ({ onBack }) => {
                       border: '1.5px solid #e2e8f0', fontSize: '0.9rem', color: '#0f172a',
                       outline: 'none', background: 'white', fontFamily: 'inherit'
                     }}
-                    onFocus={e => e.target.style.borderColor = '#f59e0b'}
+                    onFocus={e => e.target.style.borderColor = '#ff003c'}
                     onBlur={e => e.target.style.borderColor = '#e2e8f0'}
                   />
                 </div>
@@ -2335,7 +2310,7 @@ const ContactPage = ({ onBack }) => {
                       border: '1.5px solid #e2e8f0', fontSize: '0.9rem', color: '#0f172a',
                       outline: 'none', background: 'white', fontFamily: 'inherit'
                     }}
-                    onFocus={e => e.target.style.borderColor = '#f59e0b'}
+                    onFocus={e => e.target.style.borderColor = '#ff003c'}
                     onBlur={e => e.target.style.borderColor = '#e2e8f0'}
                   />
                 </div>
@@ -2347,7 +2322,7 @@ const ContactPage = ({ onBack }) => {
                       border: '1.5px solid #e2e8f0', fontSize: '0.9rem', color: '#64748b',
                       outline: 'none', background: 'white', cursor: 'pointer', fontFamily: 'inherit'
                     }}
-                    onFocus={e => e.target.style.borderColor = '#f59e0b'}
+                    onFocus={e => e.target.style.borderColor = '#ff003c'}
                     onBlur={e => e.target.style.borderColor = '#e2e8f0'}
                   >
                     <option value="">Select a topic...</option>
@@ -2376,7 +2351,7 @@ const ContactPage = ({ onBack }) => {
                     outline: 'none', background: 'white', resize: 'vertical',
                     lineHeight: 1.6, fontFamily: 'inherit'
                   }}
-                  onFocus={e => e.target.style.borderColor = '#f59e0b'}
+                  onFocus={e => e.target.style.borderColor = '#ff003c'}
                   onBlur={e => e.target.style.borderColor = '#e2e8f0'}
                 />
               </div>
@@ -2388,11 +2363,11 @@ const ContactPage = ({ onBack }) => {
                 whileTap={{ scale: 0.97 }}
                 style={{
                   width: '100%', padding: '15px', borderRadius: '10px',
-                  background: 'linear-gradient(135deg, #f59e0b 0%, #f97316 100%)',
+                  background: 'linear-gradient(135deg, #ff003c 0%, #ff3366 100%)',
                   color: 'white', border: 'none', fontSize: '1rem',
                   fontWeight: '700', cursor: 'pointer',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-                  boxShadow: '0 6px 20px rgba(245,158,11,0.35)', fontFamily: 'inherit'
+                  boxShadow: '0 6px 20px rgba(255, 0, 60,0.35)', fontFamily: 'inherit'
                 }}
               >
                 ➤ Send Message
@@ -2425,10 +2400,10 @@ const ContactPage = ({ onBack }) => {
             <div className="info-card">
               <div style={{
                 width: 48, height: 48, borderRadius: '16px',
-                background: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.3)',
+                background: 'rgba(255, 0, 60,0.15)', border: '1px solid rgba(255, 0, 60,0.3)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
               }}>
-                <MapPin size={24} color="#f59e0b" />
+                <MapPin size={24} color="#ff003c" />
               </div>
               <div>
                 <h3 style={{ color: 'white', fontWeight: '800', fontSize: '1.15rem', marginBottom: '8px' }}>SRI SAI Gifts Showroom</h3>
@@ -2489,6 +2464,156 @@ const ContactPage = ({ onBack }) => {
   );
 };
 
+const CataloguePage = ({ onBack }) => {
+  useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, []);
+
+  const catalogs = [
+    {
+      title: "Executive Gift Sets",
+      description: "Explore our collection of corporate gift sets and executive hampers. Ideal for corporate branding, executive appreciation, and festive corporate events. Features combinations of executive planners, premium writing sets, cardholders, and digital power products.",
+      icon: <Gift size={28} color="#ff003c" />,
+      iconBg: "rgba(255, 0, 60, 0.08)",
+      fileSize: "42.9 MB",
+      fileName: "gift_set_catalogue.pdf",
+      downloadUrl: "/catalogs/gift_set_catalogue.pdf"
+    },
+    {
+      title: "Sri Sai Keychains",
+      description: "Discover a wide spectrum of corporate keychains, custom keyring holders, metal charms, and executive leather keyrings. Fully customizable with high-resolution logo engraving or custom screen printing for promotional events.",
+      icon: <Key size={28} color="#22c55e" />,
+      iconBg: "rgba(34, 197, 94, 0.08)",
+      fileSize: "48.5 MB",
+      fileName: "keychain_catalogue.pdf",
+      downloadUrl: "/catalogs/keychain_catalogue.pdf"
+    },
+    {
+      title: "Premium Jute Bags",
+      description: "Eco-friendly Jute Bags, laptop totes, custom messenger shopping bags, and tiffin boxes. Expertly crafted with double-stitched reinforced padding, water-resistant interior lining, and customizable side panels for premium brand exposure.",
+      icon: <Package size={28} color="#6366f1" />,
+      iconBg: "rgba(99, 102, 241, 0.08)",
+      fileSize: "38.6 MB",
+      fileName: "jute_bags_catalogue.pdf",
+      downloadUrl: "/catalogs/jute_bags_catalogue.pdf"
+    }
+  ];
+
+  return (
+    <div className="catalogue-page-wrapper">
+      {/* Hero Header */}
+      <div className="catalogue-hero">
+        <div className="catalogue-hero-glow" />
+        <div className="catalogue-hero-glow-2" />
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          style={{ position: 'relative', zIndex: 1 }}
+        >
+          <div className="catalogue-badge">
+            <span style={{ fontSize: '1rem' }}>📖</span> Product Catalogues
+          </div>
+
+          <h1 className="catalogue-title">
+            Our Brand <span style={{ color: '#ff003c' }}>Collections</span>
+          </h1>
+
+          <p className="catalogue-subtitle">
+            Download our latest corporate catalogues to explore bulk gifting options, custom branding details, and pricing specifications.
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Grid Content */}
+      <div className="catalogue-container">
+        <div className="catalogue-grid">
+          {catalogs.map((catalog, index) => (
+            <motion.div
+              key={index}
+              className="catalogue-card"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.15, duration: 0.6 }}
+            >
+              <div className="catalogue-icon-box" style={{ backgroundColor: catalog.iconBg }}>
+                {catalog.icon}
+              </div>
+
+              <h3 className="catalogue-card-title">{catalog.title}</h3>
+              <p className="catalogue-card-desc">{catalog.description}</p>
+
+              <div className="catalogue-meta">
+                <span>FORMAT: <strong className="catalogue-meta-value">PDF</strong></span>
+                <span>SIZE: <strong className="catalogue-meta-value">{catalog.fileSize}</strong></span>
+              </div>
+
+              <a
+                href={catalog.downloadUrl}
+                download={catalog.fileName}
+                className="catalogue-download-btn"
+              >
+                <Download size={18} /> Download Catalogue
+              </a>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Interactive Info Section */}
+      <section className="catalogue-features-section">
+        <h2 className="catalogue-features-title">Why Explore Our Catalogs?</h2>
+        <div className="catalogue-features-grid">
+          <div className="catalogue-feature-card">
+            <div className="catalogue-feature-num">01</div>
+            <h4 className="catalogue-feature-name">Logo Branding</h4>
+            <p className="catalogue-feature-desc">
+              All catalogue items support brand integrations, screen-printing, metal engraving, and custom hot stamping.
+            </p>
+          </div>
+          <div className="catalogue-feature-card">
+            <div className="catalogue-feature-num">02</div>
+            <h4 className="catalogue-feature-name">Bulk Discounts</h4>
+            <p className="catalogue-feature-desc">
+              Get corporate pricing and wholesale discounts for custom orders over 100 units.
+            </p>
+          </div>
+          <div className="catalogue-feature-card">
+            <div className="catalogue-feature-num">03</div>
+            <h4 className="catalogue-feature-name">Vast Variety</h4>
+            <p className="catalogue-feature-desc">
+              Over 500+ distinct configurations, colors, and premium packaging designs are available.
+            </p>
+          </div>
+        </div>
+
+        <div className="catalogue-back-container">
+          <button
+            onClick={onBack}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '14px 32px',
+              borderRadius: '999px',
+              background: '#0f172a',
+              color: 'white',
+              border: 'none',
+              fontSize: '1rem',
+              fontWeight: '600',
+              cursor: 'pointer',
+              transition: 'background 0.2s'
+            }}
+            onMouseOver={e => e.currentTarget.style.background = '#1e293b'}
+            onMouseOut={e => e.currentTarget.style.background = '#0f172a'}
+          >
+            <ChevronLeft size={18} /> Back to Home
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 const Newsletter = () => {
   return (
     <section className="newsletter-section">
@@ -2500,14 +2625,14 @@ const Newsletter = () => {
           transition={{ duration: 0.8 }}
         >
           {/* Dot grid pattern overlay */}
-          <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(245,158,11,0.06) 1px, transparent 1px)', backgroundSize: '32px 32px', pointerEvents: 'none', zIndex: 0 }} />
+          <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(255, 0, 60,0.06) 1px, transparent 1px)', backgroundSize: '32px 32px', pointerEvents: 'none', zIndex: 0 }} />
 
           <div style={{ position: 'relative', zIndex: 1 }}>
             <span style={{
               display: 'inline-block',
-              background: 'rgba(245, 158, 11, 0.1)',
-              border: '1px solid rgba(245, 158, 11, 0.25)',
-              color: '#f59e0b',
+              background: 'rgba(255, 0, 60, 0.1)',
+              border: '1px solid rgba(255, 0, 60, 0.25)',
+              color: '#ff003c',
               padding: '6px 20px',
               borderRadius: '50px',
               fontSize: '0.8rem',
@@ -2519,9 +2644,9 @@ const Newsletter = () => {
             }}>Exclusive Access</span>
             <h2 style={{ fontSize: '2.8rem', marginBottom: '16px' }}>Join the Luxe Circle</h2>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px' }}>
-              <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg, transparent, #f59e0b)' }} />
-              <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#f59e0b', transform: 'rotate(45deg)' }} />
-              <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg, #f59e0b, transparent)' }} />
+              <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg, transparent, #ff003c)' }} />
+              <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#ff003c', transform: 'rotate(45deg)' }} />
+              <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg, #ff003c, transparent)' }} />
             </div>
             <p style={{ color: '#94a3b8', fontSize: '1.1rem', marginBottom: '40px', maxWidth: '550px', margin: '0 auto 40px', lineHeight: 1.7 }}>
               Subscribe to receive updates, access to exclusive deals, and more.
@@ -2533,19 +2658,19 @@ const Newsletter = () => {
                 className="newsletter-input"
                 style={{ fontSize: '1rem' }}
               />
-              <button className="btn" style={{ padding: '14px 36px', background: 'linear-gradient(135deg, #f59e0b, #d97706)', color: 'white', borderRadius: '50px', fontWeight: '700', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' }}>Subscribe</button>
+              <button className="btn" style={{ padding: '14px 36px', background: 'linear-gradient(135deg, #ff003c, #d60032)', color: 'white', borderRadius: '50px', fontWeight: '700', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' }}>Subscribe</button>
             </div>
           </div>
           {/* Animated glow orbs */}
-          <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(40px)', animation: 'float-slow 15s ease-in-out infinite' }}></div>
-          <div style={{ position: 'absolute', bottom: '-40px', left: '-40px', width: '200px', height: '200px', background: 'radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(40px)', animation: 'float-slow 12s ease-in-out infinite reverse' }}></div>
+          <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(255, 0, 60, 0.15) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(40px)', animation: 'float-slow 15s ease-in-out infinite' }}></div>
+          <div style={{ position: 'absolute', bottom: '-40px', left: '-40px', width: '200px', height: '200px', background: 'radial-gradient(circle, rgba(255, 0, 60, 0.1) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(40px)', animation: 'float-slow 12s ease-in-out infinite reverse' }}></div>
         </motion.div>
       </div>
     </section>
   );
 };
 
-const Footer = ({ onHomeClick, onProductsClick, onAboutClick, onContactClick }) => {
+const Footer = ({ onHomeClick, onProductsClick, onAboutClick, onContactClick, onCatalogueClick }) => {
   return (
     <footer className="footer">
       <div className="container">
@@ -2565,17 +2690,18 @@ const Footer = ({ onHomeClick, onProductsClick, onAboutClick, onContactClick }) 
           </div>
 
           <div>
-            <h4 style={{ fontSize: '1.25rem', marginBottom: '24px', color: '#f59e0b', fontWeight: '700' }}>Quick Links</h4>
+            <h4 style={{ fontSize: '1.25rem', marginBottom: '24px', color: '#ff003c', fontWeight: '700' }}>Quick Links</h4>
             <ul className="footer-links">
               <li className="footer-link-item"><a href="#" className="footer-link" onClick={(e) => { e.preventDefault(); onHomeClick(); window.scrollTo(0, 0); }}>Home</a></li>
               <li className="footer-link-item"><a href="#" className="footer-link" onClick={(e) => { e.preventDefault(); onProductsClick(); window.scrollTo(0, 0); }}>Products</a></li>
               <li className="footer-link-item"><a href="#" className="footer-link" onClick={(e) => { e.preventDefault(); onAboutClick ? onAboutClick() : (window.location.hash = '#about'); window.scrollTo(0, 0); }}>About Us</a></li>
+              <li className="footer-link-item"><a href="#" className="footer-link" onClick={(e) => { e.preventDefault(); onCatalogueClick && onCatalogueClick(); window.scrollTo(0, 0); }}>Catalogue</a></li>
               <li className="footer-link-item"><a href="#" className="footer-link" onClick={(e) => { e.preventDefault(); onContactClick(); window.scrollTo(0, 0); }}>Contact</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 style={{ fontSize: '1.25rem', marginBottom: '24px', color: '#f59e0b', fontWeight: '700' }}>Support</h4>
+            <h4 style={{ fontSize: '1.25rem', marginBottom: '24px', color: '#ff003c', fontWeight: '700' }}>Support</h4>
             <ul className="footer-links">
               <li className="footer-link-item"><a href="#" className="footer-link">Shipping Policy</a></li>
               <li className="footer-link-item"><a href="#" className="footer-link">Track Order</a></li>
@@ -2585,18 +2711,18 @@ const Footer = ({ onHomeClick, onProductsClick, onAboutClick, onContactClick }) 
           </div>
 
           <div>
-            <h4 style={{ fontSize: '1.25rem', marginBottom: '24px', color: '#f59e0b', fontWeight: '700' }}>Contact Us</h4>
+            <h4 style={{ fontSize: '1.25rem', marginBottom: '24px', color: '#ff003c', fontWeight: '700' }}>Contact Us</h4>
             <ul className="footer-links" style={{ color: '#f8fafc' }}>
               <li className="footer-link-item" style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '16px' }}>
-                <MapPin size={20} color="#f59e0b" style={{ flexShrink: 0 }} />
+                <MapPin size={20} color="#ff003c" style={{ flexShrink: 0 }} />
                 212, W Masi St, Periyar, Madurai Main, Madurai, Tamil Nadu 625001
               </li>
               <li className="footer-link-item" style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '16px' }}>
-                <Phone size={20} color="#f59e0b" style={{ flexShrink: 0 }} />
+                <Phone size={20} color="#ff003c" style={{ flexShrink: 0 }} />
                 +91 88838 88907
               </li>
               <li className="footer-link-item" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                <Mail size={20} color="#f59e0b" style={{ flexShrink: 0 }} />
+                <Mail size={20} color="#ff003c" style={{ flexShrink: 0 }} />
                 srisaibags.digital@gmail.com
               </li>
             </ul>
@@ -2887,7 +3013,7 @@ const AdminDashboard = ({ onLogout, products, setProducts }) => {
 
             {/* Stats Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px', marginBottom: '24px' }}>
-              <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '20px', borderLeft: '4px solid #f97316', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+              <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '20px', borderLeft: '4px solid #ff3366', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
                 <p style={{ color: '#64748b', fontSize: '0.875rem', fontWeight: '500', margin: '0 0 8px 0' }}>Total Orders</p>
                 <h3 style={{ fontSize: '2rem', fontWeight: '700', color: '#0f172a', margin: 0, fontFamily: "'Outfit', sans-serif" }}>0</h3>
               </div>
@@ -3083,7 +3209,7 @@ const AdminDashboard = ({ onLogout, products, setProducts }) => {
                                         borderRadius: '6px',
                                         border: '1px solid #e2e8f0',
                                         background: 'white',
-                                        color: '#f59e0b',
+                                        color: '#ff003c',
                                         cursor: 'pointer',
                                         display: 'flex',
                                         alignItems: 'center',
@@ -3091,7 +3217,7 @@ const AdminDashboard = ({ onLogout, products, setProducts }) => {
                                       }}
                                       onMouseOver={(e) => {
                                         e.currentTarget.style.backgroundColor = '#fef3c7';
-                                        e.currentTarget.style.borderColor = '#f59e0b';
+                                        e.currentTarget.style.borderColor = '#ff003c';
                                       }}
                                       onMouseOut={(e) => {
                                         e.currentTarget.style.backgroundColor = 'white';
@@ -3160,7 +3286,7 @@ const AdminDashboard = ({ onLogout, products, setProducts }) => {
                     <h2 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#0f172a', margin: 0, fontFamily: "'Outfit', sans-serif" }}>Manage Products</h2>
                     <p style={{ color: '#64748b', margin: '4px 0 0 0', fontSize: '0.875rem' }}>View, edit, and manage all product details and images</p>
                   </div>
-                  <button onClick={() => setEditingProduct({ stock: 50, priority: 999, mainCategory: '', category: '', features: [], insideImages: [] })} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 20px', background: '#f59e0b', color: 'white', border: 'none', borderRadius: '8px', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer', boxShadow: '0 4px 6px -1px rgba(245, 158, 11, 0.4)' }}>
+                  <button onClick={() => setEditingProduct({ stock: 50, priority: 999, mainCategory: '', category: '', features: [], insideImages: [] })} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 20px', background: '#ff003c', color: 'white', border: 'none', borderRadius: '8px', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer', boxShadow: '0 4px 6px -1px rgba(255, 0, 60, 0.4)' }}>
                     <Plus size={18} /> Add Product
                   </button>
                 </div>
@@ -3238,7 +3364,7 @@ const AdminDashboard = ({ onLogout, products, setProducts }) => {
                           <div style={{ display: 'flex', gap: '12px' }}>
                             <button
                               onClick={() => setEditingProduct(product)}
-                              style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', padding: '10px', background: '#f59e0b', color: 'white', border: 'none', borderRadius: '8px', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer', transition: 'opacity 0.2s' }}
+                              style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', padding: '10px', background: '#ff003c', color: 'white', border: 'none', borderRadius: '8px', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer', transition: 'opacity 0.2s' }}
                               onMouseOver={(e) => e.currentTarget.style.opacity = 0.9}
                               onMouseOut={(e) => e.currentTarget.style.opacity = 1}
                             >
@@ -3438,7 +3564,7 @@ const AdminDashboard = ({ onLogout, products, setProducts }) => {
                         cursor: imageUploading ? 'not-allowed' : 'pointer',
                         background: '#f8fafc',
                         transition: 'all 0.2s'
-                      }} onMouseOver={(e) => !imageUploading && (e.currentTarget.style.borderColor = '#f59e0b')} onMouseOut={(e) => !imageUploading && (e.currentTarget.style.borderColor = '#e2e8f0')}>
+                      }} onMouseOver={(e) => !imageUploading && (e.currentTarget.style.borderColor = '#ff003c')} onMouseOut={(e) => !imageUploading && (e.currentTarget.style.borderColor = '#e2e8f0')}>
                         <Upload size={24} color="#94a3b8" style={{ marginBottom: '8px' }} />
                         <span style={{ fontSize: '0.875rem', color: '#64748b' }}>{imageUploading ? 'Uploading...' : 'Click to upload main image'}</span>
                         <input type="file" accept="image/*" onChange={(e) => e.target.files[0] && handleImageFileUpload(e.target.files[0])} disabled={imageUploading} style={{ display: 'none' }} />
@@ -3488,7 +3614,7 @@ const AdminDashboard = ({ onLogout, products, setProducts }) => {
 
                       <div style={{ display: 'flex', gap: '12px' }}>
                         <input type="text" value={newFeatureText} onChange={(e) => setNewFeatureText(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleAddFeature()} placeholder="Add a feature..." style={{ flex: 1, padding: '10px 16px', borderRadius: '8px', border: '1px solid #e2e8f0', outline: 'none', color: '#64748b', fontSize: '0.875rem', boxSizing: 'border-box' }} />
-                        <button onClick={handleAddFeature} style={{ padding: '0 24px', background: '#f59e0b', color: 'white', border: 'none', borderRadius: '8px', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}><Plus size={16} /> Add</button>
+                        <button onClick={handleAddFeature} style={{ padding: '0 24px', background: '#ff003c', color: 'white', border: 'none', borderRadius: '8px', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}><Plus size={16} /> Add</button>
                       </div>
                     </div>
 
@@ -3753,6 +3879,9 @@ function App() {
   const [isProductsPageActive, setIsProductsPageActive] = useState(() => {
     return sessionStorage.getItem('elysian_products_active') === 'true';
   });
+  const [isCataloguePageActive, setIsCataloguePageActive] = useState(() => {
+    return sessionStorage.getItem('elysian_catalogue_active') === 'true';
+  });
   const [cartAnimation, setCartAnimation] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
@@ -3792,6 +3921,10 @@ function App() {
   useEffect(() => {
     sessionStorage.setItem('elysian_products_active', isProductsPageActive);
   }, [isProductsPageActive]);
+
+  useEffect(() => {
+    sessionStorage.setItem('elysian_catalogue_active', isCataloguePageActive);
+  }, [isCataloguePageActive]);
 
   const [products, setProducts] = useState(() => {
     const cached = sessionStorage.getItem('elysian_products_cache');
@@ -3972,6 +4105,7 @@ function App() {
     setIsContactPageActive(false);
     setIsAboutPageActive(false);
     setIsProductsPageActive(false);
+    setIsCataloguePageActive(false);
   };
 
   const goToProducts = () => {
@@ -3981,6 +4115,7 @@ function App() {
     setIsCartPageActive(false);
     setIsContactPageActive(false);
     setIsAboutPageActive(false);
+    setIsCataloguePageActive(false);
     setIsProductsPageActive(true);
   };
 
@@ -3991,6 +4126,7 @@ function App() {
     setIsCartPageActive(false);
     setIsProductsPageActive(false);
     setIsAboutPageActive(false);
+    setIsCataloguePageActive(false);
     setIsContactPageActive(true);
   };
 
@@ -4001,7 +4137,19 @@ function App() {
     setIsCartPageActive(false);
     setIsProductsPageActive(false);
     setIsContactPageActive(false);
+    setIsCataloguePageActive(false);
     setIsAboutPageActive(true);
+  };
+
+  const goToCatalogue = () => {
+    setSelectedProductView(null);
+    setSelectedCategory(null);
+    setIsWishlistPageActive(false);
+    setIsCartPageActive(false);
+    setIsProductsPageActive(false);
+    setIsContactPageActive(false);
+    setIsAboutPageActive(false);
+    setIsCataloguePageActive(true);
   };
 
   // Sync user data on load if logged in
@@ -4077,18 +4225,21 @@ function App() {
         onHomeClick={goHome}
         onProductsClick={goToProducts}
         onAboutClick={goToAbout}
+        onCatalogueClick={goToCatalogue}
         onContactClick={goToContact}
         onWishlistClick={() => {
           if (!currentUser) { setIsAuthModalOpen(true); return; }
           setSelectedProductView(null); setSelectedCategory(null);
           setIsCartPageActive(false); setIsContactPageActive(false);
           setIsProductsPageActive(false); setIsWishlistPageActive(true);
+          setIsCataloguePageActive(false);
         }}
         onCartClick={() => {
           if (!currentUser) { setIsAuthModalOpen(true); return; }
           setSelectedProductView(null); setSelectedCategory(null);
           setIsWishlistPageActive(false); setIsContactPageActive(false);
           setIsProductsPageActive(false); setIsCartPageActive(true);
+          setIsCataloguePageActive(false);
         }}
       />
 
@@ -4110,6 +4261,8 @@ function App() {
         <AboutPage onBack={goHome} />
       ) : isContactPageActive ? (
         <ContactPage onBack={goHome} />
+      ) : isCataloguePageActive ? (
+        <CataloguePage onBack={goHome} />
       ) : isCartPageActive ? (
         <CartPage
           products={products}
@@ -4196,6 +4349,7 @@ function App() {
         onHomeClick={goHome}
         onProductsClick={goToProducts}
         onAboutClick={goToAbout}
+        onCatalogueClick={goToCatalogue}
         onContactClick={goToContact}
       />
 
