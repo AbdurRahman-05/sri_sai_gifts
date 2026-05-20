@@ -319,13 +319,14 @@ h6 {
 }
 
 .desktop-actions {
-  display: none;
-  gap: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
 
 @media (min-width: 1024px) {
   .desktop-actions {
-    display: flex;
+    gap: 24px;
   }
 }
 
@@ -1668,4 +1669,586 @@ h6 {
 .uiverse-wishlist:hover {
   transform: scale(1.1);
   color: #ef4444;
-}
+}
+
+/* ── ADDITIONAL MOBILE & RESPONSIVE IMPROVEMENTS ── */
+
+/* Navbar Z-index Fix */
+.navbar {
+  z-index: 1050;
+}
+
+/* User Avatar classes */
+.desktop-user-avatar {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 20px;
+  background: rgba(245, 158, 11, 0.1);
+}
+@media (max-width: 1023px) {
+  .desktop-user-avatar {
+    display: none !important;
+  }
+}
+
+/* Products Filter Cards & Styles */
+.products-filter-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f1f5f9;
+}
+
+.filter-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.categories-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.category-filter-btn {
+  text-align: left;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: transparent;
+  color: #64748b;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: inherit;
+}
+
+.category-filter-btn:hover {
+  color: var(--accent);
+}
+
+.category-filter-btn.active {
+  background: var(--accent);
+  color: white !important;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.subcategories-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 16px;
+  margin-top: 4px;
+}
+
+.subcategory-filter-btn {
+  text-align: left;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: transparent;
+  color: #64748b;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 400;
+  transition: all 0.2s;
+  width: 100%;
+  font-family: inherit;
+}
+
+.subcategory-filter-btn:hover {
+  color: var(--accent-dark);
+}
+
+.subcategory-filter-btn.active {
+  background: #fef3c7;
+  color: #d97706 !important;
+  font-weight: 600;
+}
+
+.price-range-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.price-range-slider {
+  width: 100%;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+/* Mobile & Tablet Overrides (max-width: 1024px) */
+@media (max-width: 1024px) {
+  /* Products layout filters stacked horizontally */
+  .products-layout {
+    flex-direction: column;
+    padding: 30px 16px;
+    gap: 20px;
+  }
+  
+  .products-sidebar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .products-filter-card {
+    padding: 16px;
+  }
+
+  .filter-title {
+    margin-bottom: 12px;
+    font-size: 1rem;
+  }
+
+  /* Horizontal Category Selection Pills */
+  .categories-container {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 4px 0 10px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .categories-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-group {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .category-filter-btn {
+    width: auto;
+    white-space: nowrap;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    border-radius: 50px;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* Subcategories as a horizontal scrollbar right under categories */
+  .subcategories-container {
+    display: flex;
+    flex-direction: row;
+    padding: 4px 0;
+    margin-top: 0;
+    border-left: none;
+    gap: 8px;
+    overflow-x: auto;
+    width: 100%;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+  
+  /* Make subcategories fit neatly in their own container */
+  .products-sidebar .products-filter-card:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .subcategory-filter-btn {
+    width: auto;
+    white-space: nowrap;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    border-radius: 50px;
+    border: 1px solid #f1f5f9;
+    background: #f8fafc;
+  }
+
+  /* Compact products grid */
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+  }
+
+  /* Uiverse Product Card touch-screen layout overrides (Always show info, no hover required) */
+  .uiverse-product-card {
+    height: auto;
+    min-height: 290px;
+    padding: 0;
+    justify-content: flex-start;
+    border-radius: 20px;
+  }
+
+  .uiverse-product-card:hover {
+    transform: none !important;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.04) !important;
+    border-color: rgba(245, 158, 11, 0.08) !important;
+  }
+
+  .uiverse-card-image {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    width: 100% !important;
+    height: 140px !important;
+    object-fit: contain !important;
+    padding: 12px !important;
+    margin-top: 8px !important;
+    opacity: 1 !important;
+    animation: none !important;
+    filter: none !important;
+    z-index: 2;
+    transition: none !important;
+  }
+
+  .uiverse-product-card:hover .uiverse-card-image {
+    width: 100% !important;
+    height: 140px !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  .uiverse-card-text {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    padding: 8px 12px 12px !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: auto;
+  }
+
+  .uiverse-product-card:hover .uiverse-card-text {
+    top: 0 !important;
+    left: 0 !important;
+  }
+
+  .uiverse-card-text span {
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .uiverse-card-text p {
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    color: #f59e0b !important;
+  }
+
+  .uiverse-actions {
+    position: relative !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 38px !important;
+    display: flex !important;
+    z-index: 20;
+    transition: none !important;
+  }
+
+  .uiverse-product-card:hover .uiverse-actions {
+    bottom: 0 !important;
+  }
+
+  .uiverse-action-btn {
+    height: 100% !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 0.2px !important;
+    gap: 4px;
+  }
+
+  .uiverse-wishlist {
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+  }
+  
+  .uiverse-wishlist svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .uiverse-badge {
+    top: 10px;
+    left: 10px;
+    padding: 2px 8px;
+    font-size: 0.55rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+
+/* ── ABOUT PAGE RESPONSIVE STYLES ── */
+
+.about-section-padding {
+  padding: 120px 0;
+}
+
+.about-philosophy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.about-philosophy-title {
+  font-size: 3rem;
+}
+
+.about-philosophy-text {
+  font-size: 1.15rem;
+}
+
+.about-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.about-section-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.about-why-choose-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  grid-auto-rows: minmax(200px, auto);
+}
+
+.about-why-choose-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 32px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.about-why-choose-card.span-2 {
+  grid-column: span 2;
+}
+
+.about-why-choose-card.span-1 {
+  grid-column: span 1;
+}
+
+.about-spectrum-title {
+  font-size: 4rem;
+  font-weight: 950;
+  letter-spacing: -1px;
+}
+
+.about-spectrum-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.about-spectrum-card {
+  background: #f8fafc;
+  padding: 60px;
+  border-radius: 40px;
+  border: 1px solid #e2e8f0;
+}
+
+.about-cta-section {
+  padding-bottom: 120px;
+}
+
+.about-cta-box {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  padding: 100px 60px;
+  border-radius: 50px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-cta-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 32px;
+}
+
+.about-cta-btn {
+  background: #fff;
+  color: #d97706;
+  padding: 24px 64px;
+  border-radius: 100px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* Responsive Overrides (max-width: 900px) */
+@media (max-width: 900px) {
+  .about-section-padding {
+    padding: 60px 0;
+  }
+
+  .about-philosophy-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  
+  .about-philosophy-title {
+    font-size: 2.2rem !important;
+    margin-bottom: 16px !important;
+  }
+
+  .about-philosophy-text {
+    font-size: 1.05rem !important;
+    margin-bottom: 24px !important;
+  }
+
+  .about-philosophy-grid img {
+    max-width: 100%;
+    border-radius: 24px !important;
+  }
+  
+  .about-philosophy-grid div[style*="borderRadius: '40px'"] {
+    border-radius: 24px !important;
+  }
+
+  .about-stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .about-section-title {
+    font-size: 2.2rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .about-why-choose-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 16px;
+  }
+
+  .about-why-choose-card.span-2,
+  .about-why-choose-card.span-1 {
+    grid-column: span 1 !important;
+  }
+
+  .about-why-choose-card {
+    padding: 28px 24px;
+    border-radius: 20px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-why-choose-card h3 {
+    font-size: 1.25rem !important;
+  }
+
+  .about-spectrum-title {
+    font-size: 2.4rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .about-spectrum-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .about-spectrum-card {
+    padding: 32px 24px;
+    border-radius: 24px;
+  }
+
+  .about-spectrum-card h3 {
+    font-size: 1.8rem !important;
+    margin-bottom: 24px !important;
+  }
+
+  .about-cta-section {
+    padding-bottom: 60px;
+  }
+
+  .about-cta-box {
+    padding: 60px 24px;
+    border-radius: 24px;
+  }
+
+  .about-cta-title {
+    font-size: 2.2rem !important;
+    margin-bottom: 20px !important;
+  }
+
+  .about-cta-desc {
+    font-size: 1.05rem !important;
+    margin-bottom: 32px !important;
+  }
+
+  .about-cta-btn {
+    padding: 16px 40px !important;
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-stats-grid {
+    grid-template-columns: 1fr;
+    max-width: 280px;
+  }
+}
+

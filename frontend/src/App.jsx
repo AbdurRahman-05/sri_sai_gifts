@@ -369,7 +369,8 @@ const Navbar = ({ onSignInClick, onHomeClick, onProductsClick, onAboutClick, cur
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div
                   onClick={onAccountClick}
-                  style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', padding: '4px 8px', borderRadius: '20px', background: 'rgba(245, 158, 11, 0.1)' }}>
+                  className="desktop-user-avatar"
+                >
                   <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#0f172a', color: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 'bold' }}>
                     {currentUser.fullName[0].toUpperCase()}
                   </div>
@@ -390,11 +391,11 @@ const Navbar = ({ onSignInClick, onHomeClick, onProductsClick, onAboutClick, cur
 
       <div className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
         <div className="mobile-nav-links">
-          <a href="#home" className="nav-link" onClick={() => { onHomeClick(); setIsMenuOpen(false); }}>Home</a>
-          <a href="#products" className="nav-link" onClick={(e) => { e.preventDefault(); onProductsClick && onProductsClick(); setIsMenuOpen(false); }}>Products</a>
-          <a href="#about" className="nav-link" onClick={() => { onAboutClick(); setIsMenuOpen(false); }}>About</a>
-          <a href="#catalogue" className="nav-link" onClick={() => setIsMenuOpen(false)}>Catalogue</a>
-          <a href="#contact" className="nav-link" onClick={(e) => { e.preventDefault(); onContactClick && onContactClick(); setIsMenuOpen(false); }}>Contact</a>
+          <a href="#home" className="mobile-nav-link" onClick={() => { onHomeClick(); setIsMenuOpen(false); }}>Home</a>
+          <a href="#products" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onProductsClick && onProductsClick(); setIsMenuOpen(false); }}>Products</a>
+          <a href="#about" className="mobile-nav-link" onClick={() => { onAboutClick(); setIsMenuOpen(false); }}>About</a>
+          <a href="#catalogue" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Catalogue</a>
+          <a href="#contact" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onContactClick && onContactClick(); setIsMenuOpen(false); }}>Contact</a>
           <div className="mobile-menu-actions">
             <div style={{ display: 'flex', gap: '24px', marginBottom: '24px' }}>
               <div onClick={() => { onWishlistClick(); setIsMenuOpen(false); }} style={{ position: 'relative' }}>
@@ -2003,9 +2004,9 @@ const AboutPage = ({ onBack }) => {
       </section>
 
       {/* Our Philosophy - Split Section */}
-      <section style={{ padding: '120px 0', overflow: 'hidden' }}>
+      <section className="about-section-padding" style={{ overflow: 'hidden' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'center' }}>
+          <div className="about-philosophy-grid">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -2028,14 +2029,14 @@ const AboutPage = ({ onBack }) => {
               viewport={{ once: true }}
             >
               <span style={{ color: '#f59e0b', fontWeight: '700', fontSize: '0.9rem', marginBottom: '12px', display: 'block' }}>OUR PHILOSOPHY</span>
-              <h2 style={{ fontSize: '3rem', fontWeight: '900', lineHeight: 1.1, marginBottom: '32px' }}>
+              <h2 className="about-philosophy-title" style={{ fontWeight: '900', lineHeight: 1.1, marginBottom: '32px' }}>
                 Every Brand Tells a <span style={{ color: '#f59e0b' }}>Story.</span> We Help You Tell It.
               </h2>
-              <p style={{ color: '#475569', fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '32px' }}>
+              <p className="about-philosophy-text" style={{ color: '#475569', lineHeight: 1.8, marginBottom: '32px' }}>
                 We believe that every corporate gift is a silent ambassador for your business. That's why we meticulously combine modern design with industrial durability, ensuring that every bag and accessory we produce leaves a lasting mark of professionalism.
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+              <div className="about-stats-grid">
                 {stats.map((s, i) => (
                   <div key={i} style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
                     <div style={{ color: '#f59e0b', background: 'rgba(245,158,11,0.1)', padding: '12px', borderRadius: '12px' }}>
@@ -2051,21 +2052,16 @@ const AboutPage = ({ onBack }) => {
       </section>
 
       {/* Bento Grid - Why Choose Us */}
-      <section style={{ backgroundColor: '#0f172a', padding: '120px 0', color: '#fff' }}>
+      <section className="about-section-padding" style={{ backgroundColor: '#0f172a', color: '#fff' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-            <h2 style={{ fontSize: '3.5rem', fontWeight: '900', marginBottom: '20px' }}>The Sri Sai <span style={{ color: '#f59e0b' }}>Advantage</span></h2>
+          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <h2 className="about-section-title">The Sri Sai <span style={{ color: '#f59e0b' }}>Advantage</span></h2>
             <p style={{ color: '#94a3b8', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>
               What sets us apart in the world of corporate manufacturing and bespoke gifting.
             </p>
           </div>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '24px',
-            gridAutoRows: 'minmax(200px, auto)'
-          }}>
+          <div className="about-why-choose-grid">
             {whyChooseUs.map((item, i) => (
               <motion.div
                 key={i}
@@ -2074,17 +2070,7 @@ const AboutPage = ({ onBack }) => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.05)' }}
-                style={{
-                  gridColumn: item.grid === "span-2" ? "span 2" : "span 1",
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: '32px',
-                  padding: '40px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  transition: 'all 0.3s ease'
-                }}
+                className={`about-why-choose-card ${item.grid === "span-2" ? "span-2" : "span-1"}`}
               >
                 <div style={{ color: '#f59e0b', marginBottom: '24px' }}>{item.icon}</div>
                 <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '12px' }}>{item.title}</h3>
@@ -2096,26 +2082,21 @@ const AboutPage = ({ onBack }) => {
       </section>
 
       {/* Product Universe */}
-      <section style={{ padding: '120px 0' }}>
+      <section className="about-section-padding">
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '100px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
             <span style={{ color: '#f59e0b', fontWeight: '800', letterSpacing: '4px', fontSize: '0.8rem', display: 'block', marginBottom: '16px' }}>OUR UNIVERSE</span>
-            <h2 style={{ fontSize: '4rem', fontWeight: '950', letterSpacing: '-1px' }}>Product Spectrum</h2>
+            <h2 className="about-spectrum-title">Product Spectrum</h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
+          <div className="about-spectrum-grid">
             {productCategories.map((cat, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                style={{
-                  background: '#f8fafc',
-                  padding: '60px',
-                  borderRadius: '40px',
-                  border: '1px solid #e2e8f0'
-                }}
+                className="about-spectrum-card"
               >
                 <h3 style={{ fontSize: '2.5rem', fontWeight: '900', marginBottom: '40px', color: '#1e293b' }}>{cat.title}</h3>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
@@ -2141,42 +2122,24 @@ const AboutPage = ({ onBack }) => {
       </section>
 
       {/* Modern CTA */}
-      <section style={{ paddingBottom: '120px' }}>
+      <section className="about-cta-section">
         <div className="container">
-          <div style={{
-            background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-            padding: '100px 60px',
-            borderRadius: '50px',
-            textAlign: 'center',
-            color: '#fff',
-            position: 'relative',
-            overflow: 'hidden'
-          }}>
+          <div className="about-cta-box">
             <div style={{
               position: 'absolute', top: '-100px', right: '-100px',
               width: '300px', height: '300px', background: 'rgba(255,255,255,0.1)',
               borderRadius: '50%', filter: 'blur(80px)'
             }} />
 
-            <h2 style={{ fontSize: '3.5rem', fontWeight: '900', marginBottom: '32px' }}>Let's Create Something <br /> Extraordinary Together.</h2>
-            <p style={{ fontSize: '1.25rem', color: 'rgba(255,255,255,0.9)', maxWidth: '700px', margin: '0 auto 48px', lineHeight: 1.6 }}>
+            <h2 className="about-cta-title">Let's Create Something <br /> Extraordinary Together.</h2>
+            <p className="about-cta-desc" style={{ color: 'rgba(255,255,255,0.9)', maxWidth: '700px', margin: '0 auto 48px', lineHeight: 1.6 }}>
               From startups to global corporations, we provide products that represent your business with style, quality, and professionalism.
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={onBack}
-              style={{
-                background: '#fff',
-                color: '#d97706',
-                padding: '24px 64px',
-                borderRadius: '100px',
-                fontSize: '1.2rem',
-                fontWeight: '800',
-                border: 'none',
-                cursor: 'pointer',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.15)'
-              }}
+              className="about-cta-btn"
             >
               Start Your Project
             </motion.button>
@@ -3613,11 +3576,11 @@ const ProductsPage = ({ products, currentUser, onProductClick, onCartClick, onLi
         <div className="products-sidebar">
 
           {/* Categories Filter Card */}
-          <div style={{ background: 'white', borderRadius: '16px', padding: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0f172a', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div className="products-filter-card">
+            <h3 className="filter-title">
               <Filter size={18} /> Categories
             </h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div className="categories-container">
               {categories.map((cat, i) => {
                 const isMainCat = cat !== "All";
                 let subCats = [];
@@ -3632,24 +3595,11 @@ const ProductsPage = ({ products, currentUser, onProductClick, onCartClick, onLi
                 }
                 const isActiveMain = selectedCategory === cat || (subCats && subCats.includes(selectedCategory));
 
-                // Hide main categories that have 0 products (optional, but requested for subcategories)
-                // We'll focus just on hiding the empty subcategories as requested.
-
                 return (
-                  <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <div key={i} className="category-group">
                     <button
                       onClick={() => setSelectedCategory(cat)}
-                      style={{
-                        textAlign: 'left', padding: '12px 16px', borderRadius: '10px',
-                        background: selectedCategory === cat ? '#f59e0b' : 'transparent',
-                        color: selectedCategory === cat ? 'white' : '#64748b',
-                        border: 'none', cursor: 'pointer', fontSize: '0.9rem', fontWeight: selectedCategory === cat ? '600' : '500',
-                        transition: 'all 0.2s',
-                        boxShadow: selectedCategory === cat ? '0 4px 12px rgba(245,158,11,0.3)' : 'none',
-                        width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center'
-                      }}
-                      onMouseOver={(e) => { if (selectedCategory !== cat) e.currentTarget.style.color = '#f59e0b'; }}
-                      onMouseOut={(e) => { if (selectedCategory !== cat) e.currentTarget.style.color = '#64748b'; }}
+                      className={`category-filter-btn ${selectedCategory === cat ? 'active' : ''}`}
                     >
                       <span>{cat}</span>
                       {subCats && subCats.length > 0 && (
@@ -3657,20 +3607,12 @@ const ProductsPage = ({ products, currentUser, onProductClick, onCartClick, onLi
                       )}
                     </button>
                     {isActiveMain && subCats && subCats.length > 0 && (
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', paddingLeft: '16px', marginTop: '4px' }}>
+                      <div className="subcategories-container">
                         {subCats.map((sub, j) => (
                           <button
                             key={j}
                             onClick={() => setSelectedCategory(sub)}
-                            style={{
-                              textAlign: 'left', padding: '8px 12px', borderRadius: '8px',
-                              background: selectedCategory === sub ? '#fef3c7' : 'transparent',
-                              color: selectedCategory === sub ? '#d97706' : '#64748b',
-                              border: 'none', cursor: 'pointer', fontSize: '0.85rem', fontWeight: selectedCategory === sub ? '600' : '400',
-                              transition: 'all 0.2s', width: '100%'
-                            }}
-                            onMouseOver={(e) => { if (selectedCategory !== sub) e.currentTarget.style.color = '#d97706'; }}
-                            onMouseOut={(e) => { if (selectedCategory !== sub) e.currentTarget.style.color = '#64748b'; }}
+                            className={`subcategory-filter-btn ${selectedCategory === sub ? 'active' : ''}`}
                           >
                             {sub}
                           </button>
@@ -3684,11 +3626,11 @@ const ProductsPage = ({ products, currentUser, onProductClick, onCartClick, onLi
           </div>
 
           {/* Price Range Filter Card */}
-          <div style={{ background: 'white', borderRadius: '16px', padding: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0f172a', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div className="products-filter-card">
+            <h3 className="filter-title">
               <SlidersHorizontal size={18} /> Price Range
             </h3>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', fontSize: '0.85rem', color: '#0f172a', fontWeight: '600' }}>
+            <div className="price-range-info">
               <span>₹0</span>
               <span>₹{priceMax.toLocaleString('en-IN')}</span>
             </div>
@@ -3699,7 +3641,7 @@ const ProductsPage = ({ products, currentUser, onProductClick, onCartClick, onLi
               step={Math.max(1, Math.floor(absoluteMaxPrice / 100))}
               value={priceMax}
               onChange={(e) => setPriceMax(Number(e.target.value))}
-              style={{ width: '100%', cursor: 'pointer', accentColor: '#3b82f6' }}
+              className="price-range-slider"
             />
           </div>
         </div>
