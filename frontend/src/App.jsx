@@ -2494,6 +2494,15 @@ const CataloguePage = ({ onBack }) => {
       fileSize: "38.6 MB",
       fileName: "jute_bags_catalogue.pdf",
       downloadUrl: "/catalogs/jute_bags_catalogue.pdf"
+    },
+    {
+      title: "Sri Sai Bags Collection",
+      description: "Our complete and comprehensive catalogue featuring a diverse range of premium bags, executive gifts, and custom promotional items. A showcase of our finest collections designed to meet all your corporate gifting needs.",
+      icon: <Briefcase size={28} color="#f59e0b" />,
+      iconBg: "rgba(245, 158, 11, 0.08)",
+      fileSize: "89.4 MB",
+      fileName: "sri_sai_bags.pdf",
+      downloadUrl: "/catalogs/sri_sai_bags.pdf"
     }
   ];
 
