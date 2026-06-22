@@ -2785,6 +2785,30 @@ h6 {
   transform: scale(1.02);
 }
 
+.catalogue-view-btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(255, 0, 60, 0.1);
+  color: #ff003c;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.catalogue-view-btn:hover {
+  background: rgba(255, 0, 60, 0.2);
+  box-shadow: 0 8px 24px rgba(255, 0, 60, 0.15);
+  transform: scale(1.02);
+}
+
 /* Feature Section */
 .catalogue-features-section {
   max-width: 1000px;

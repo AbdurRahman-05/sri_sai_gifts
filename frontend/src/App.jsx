@@ -265,6 +265,7 @@ const AngledSlider = ({
 
 const categoryStructure = {
   "Bags & Travel Accessories": ["Jute Bags", "Laptop Bags", "Ladies Slings", "Ladies Wallets", "Capsule Umbrella", "Umbrella", "Tiffin Pouch"],
+  "BAGS": ["Lunch Bag", "Cash Bag", "Return Gift Bags", "Travel Bag", "Jute Bag", "Laptop Bag", "School Bag", "Trolley"],
   "Office & Desktop Accessories": ["Clock", "Wooden Pen Stand Clock", "Pen Stand", "Dock / Pen Stand Dock", "Paper Pad & Pen Stand", "Mobile Stand", "Scale", "Clip Board"],
   "Writing & Stationery": ["Designer Notebook", "Memo Pad", "Diaries", "Metal Ball Pen", "Plastic Ball Pen", "Engraved Pen", "Card Holder"],
   "Tech & Electronic Accessories": ["Power Bank", "USB", "USB Pendrive", "Speaker", "Charging Stand"],
@@ -313,10 +314,10 @@ const Navbar = ({ onSignInClick, onHomeClick, onProductsClick, onAboutClick, onC
       <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''}`}>
         <div className="container navbar-content">
           <div
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               onHomeClick();
               setIsMenuOpen(false);
-              window.location.href = '#';
             }}
             style={{ cursor: 'pointer' }}
             className="brand-wrapper"
@@ -325,11 +326,11 @@ const Navbar = ({ onSignInClick, onHomeClick, onProductsClick, onAboutClick, onC
           </div>
 
           <div className="nav-links">
-            <a href="#home" className="nav-link" onClick={onHomeClick}>Home</a>
-            <a href="#products" className="nav-link" onClick={(e) => { e.preventDefault(); onProductsClick && onProductsClick(); }}>Products</a>
-            <a href="#about" className="nav-link" onClick={(e) => { e.preventDefault(); onAboutClick(); }}>About</a>
-            <a href="#catalogue" className="nav-link" onClick={(e) => { e.preventDefault(); onCatalogueClick && onCatalogueClick(); }}>Catalogue</a>
-            <a href="#contact" className="nav-link" onClick={(e) => { e.preventDefault(); onContactClick && onContactClick(); }}>Contact</a>
+            <a href="/" className="nav-link" onClick={(e) => { e.preventDefault(); onHomeClick(); }}>Home</a>
+            <a href="/products" className="nav-link" onClick={(e) => { e.preventDefault(); onProductsClick && onProductsClick(); }}>Products</a>
+            <a href="/about" className="nav-link" onClick={(e) => { e.preventDefault(); onAboutClick(); }}>About</a>
+            <a href="/catalogue" className="nav-link" onClick={(e) => { e.preventDefault(); onCatalogueClick && onCatalogueClick(); }}>Catalogue</a>
+            <a href="/contact" className="nav-link" onClick={(e) => { e.preventDefault(); onContactClick && onContactClick(); }}>Contact</a>
           </div>
 
           <div className="nav-actions">
@@ -391,11 +392,11 @@ const Navbar = ({ onSignInClick, onHomeClick, onProductsClick, onAboutClick, onC
 
       <div className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
         <div className="mobile-nav-links">
-          <a href="#home" className="mobile-nav-link" onClick={() => { onHomeClick(); setIsMenuOpen(false); }}>Home</a>
-          <a href="#products" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onProductsClick && onProductsClick(); setIsMenuOpen(false); }}>Products</a>
-          <a href="#about" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onAboutClick(); setIsMenuOpen(false); }}>About</a>
-          <a href="#catalogue" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onCatalogueClick && onCatalogueClick(); setIsMenuOpen(false); }}>Catalogue</a>
-          <a href="#contact" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onContactClick && onContactClick(); setIsMenuOpen(false); }}>Contact</a>
+          <a href="/" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onHomeClick(); setIsMenuOpen(false); }}>Home</a>
+          <a href="/products" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onProductsClick && onProductsClick(); setIsMenuOpen(false); }}>Products</a>
+          <a href="/about" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onAboutClick(); setIsMenuOpen(false); }}>About</a>
+          <a href="/catalogue" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onCatalogueClick && onCatalogueClick(); setIsMenuOpen(false); }}>Catalogue</a>
+          <a href="/contact" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onContactClick && onContactClick(); setIsMenuOpen(false); }}>Contact</a>
           <div className="mobile-menu-actions">
             <div style={{ display: 'flex', gap: '24px', marginBottom: '24px' }}>
               <div onClick={() => { onWishlistClick(); setIsMenuOpen(false); }} style={{ position: 'relative' }}>
@@ -1157,7 +1158,6 @@ const ProductDetails = ({ product, onBack, onLikeClick, onCartClick, onBuyNowCli
   const handleDec = () => setQuantity(prev => Math.max(1, prev - 1));
   const handleInc = () => setQuantity(prev => Math.min(stockCount, prev + 1));
 
-  const comparePrice = (product.comparePrice && product.comparePrice > 0) ? product.comparePrice : Math.round((product.price || 0) * 1.2);
   const mainCat = product.mainCategory || getMainCategoryForSub(product.category);
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, []);
@@ -1270,18 +1270,7 @@ const ProductDetails = ({ product, onBack, onLikeClick, onCartClick, onBuyNowCli
               <span style={{ color: '#94a3b8', fontSize: '0.875rem' }}>(124 reviews)</span>
             </div>
 
-            {/* Price block */}
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '14px', marginBottom: '28px', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '2.25rem', fontWeight: '800', color: '#ff003c', lineHeight: 1 }}>₹{product.price || 0}</span>
-              {comparePrice > (product.price || 0) && (
-                <>
-                  <span style={{ fontSize: '1.25rem', color: '#94a3b8', textDecoration: 'line-through', lineHeight: 1.6 }}>₹{comparePrice}</span>
-                  <span style={{ background: '#dcfce7', color: '#16a34a', fontSize: '0.8rem', fontWeight: '700', padding: '4px 10px', borderRadius: '20px', lineHeight: 1.6 }}>
-                    {Math.round(((comparePrice - (product.price || 0)) / comparePrice) * 100)}% OFF
-                  </span>
-                </>
-              )}
-            </div>
+            {/* Price block removed */}
 
             {/* Description */}
             {product.description && (
@@ -1429,8 +1418,6 @@ const ProductDetails = ({ product, onBack, onLikeClick, onCartClick, onBuyNowCli
 
 const ProductCard = ({ product, index, onClick, onLikeClick, onCartClick }) => {
   const inStock = product.stock !== undefined ? product.stock > 0 : true;
-  const comparePrice = (product.comparePrice && product.comparePrice > 0) ? product.comparePrice : Math.round((product.price || 0) * 1.2);
-  const discountPercent = comparePrice > product.price ? Math.round(((comparePrice - product.price) / comparePrice) * 100) : 0;
 
   return (
     <motion.div
@@ -1440,7 +1427,6 @@ const ProductCard = ({ product, index, onClick, onLikeClick, onCartClick }) => {
       className="uiverse-product-card"
       onClick={() => onClick && onClick(product)}
     >
-      {discountPercent > 0 && <div className="uiverse-badge">{discountPercent}% OFF</div>}
 
       <button
         className="uiverse-wishlist"
@@ -1465,7 +1451,6 @@ const ProductCard = ({ product, index, onClick, onLikeClick, onCartClick }) => {
 
       <div className="uiverse-card-text">
         <span>{product.name}</span>
-        <p>₹{product.price}</p>
       </div>
 
       <div className="uiverse-actions">
@@ -2556,13 +2541,25 @@ const CataloguePage = ({ onBack }) => {
                 <span>SIZE: <strong className="catalogue-meta-value">{catalog.fileSize}</strong></span>
               </div>
 
-              <a
-                href={catalog.downloadUrl}
-                download={catalog.fileName}
-                className="catalogue-download-btn"
-              >
-                <Download size={18} /> Download Catalogue
-              </a>
+              <div style={{ display: 'flex', gap: '12px', width: '100%', marginTop: '10px' }}>
+                <a
+                  href={catalog.downloadUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="catalogue-view-btn"
+                  style={{ flex: 1, margin: 0 }}
+                >
+                  <BookOpen size={18} /> View
+                </a>
+                <a
+                  href={catalog.downloadUrl}
+                  download={catalog.fileName}
+                  className="catalogue-download-btn"
+                  style={{ flex: 1, margin: 0 }}
+                >
+                  <Download size={18} /> Download
+                </a>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -3726,7 +3723,9 @@ const ProductsPage = ({ products, currentUser, onProductClick, onCartClick, onLi
                     const cCat = p.category ? getMainCategoryForSub(p.category).toLowerCase().trim() : '';
                     return mCat === normalizedCat || cCat === normalizedCat;
                   });
-                  subCats = [...new Set(productsInThisMain.map(p => p.category ? p.category.trim() : `Other ${cat}`))].filter(Boolean);
+                  const dynamicSubCats = productsInThisMain.map(p => p.category ? p.category.trim() : `Other ${cat}`);
+                  const predefinedSubCats = categoryStructure[cat] || [];
+                  subCats = [...new Set([...predefinedSubCats, ...dynamicSubCats])].filter(Boolean);
                 }
                 const isActiveMain = selectedCategory === cat || (subCats && subCats.includes(selectedCategory));
 
@@ -3760,25 +3759,7 @@ const ProductsPage = ({ products, currentUser, onProductClick, onCartClick, onLi
             </div>
           </div>
 
-          {/* Price Range Filter Card */}
-          <div className="products-filter-card">
-            <h3 className="filter-title">
-              <SlidersHorizontal size={18} /> Price Range
-            </h3>
-            <div className="price-range-info">
-              <span>₹0</span>
-              <span>₹{priceMax.toLocaleString('en-IN')}</span>
-            </div>
-            <input
-              type="range"
-              min="0"
-              max={absoluteMaxPrice}
-              step={Math.max(1, Math.floor(absoluteMaxPrice / 100))}
-              value={priceMax}
-              onChange={(e) => setPriceMax(Number(e.target.value))}
-              className="price-range-slider"
-            />
-          </div>
+
         </div>
 
         {/* RIGHT MAIN AREA */}
@@ -3893,6 +3874,30 @@ function App() {
   });
   const [cartAnimation, setCartAnimation] = useState(false);
   const [showToast, setShowToast] = useState(false);
+
+  useEffect(() => {
+    const handleLocation = () => {
+      const path = window.location.pathname;
+      if (path === '/about') {
+        setIsAboutPageActive(true); setIsProductsPageActive(false); setIsContactPageActive(false); setIsCataloguePageActive(false);
+      } else if (path === '/products') {
+        setIsProductsPageActive(true); setIsAboutPageActive(false); setIsContactPageActive(false); setIsCataloguePageActive(false);
+      } else if (path === '/contact') {
+        setIsContactPageActive(true); setIsAboutPageActive(false); setIsProductsPageActive(false); setIsCataloguePageActive(false);
+      } else if (path === '/catalogue') {
+        setIsCataloguePageActive(true); setIsAboutPageActive(false); setIsProductsPageActive(false); setIsContactPageActive(false);
+      } else if (path === '/') {
+        setIsAboutPageActive(false); setIsProductsPageActive(false); setIsContactPageActive(false); setIsCataloguePageActive(false);
+      }
+    };
+    
+    if (window.location.pathname !== '/') {
+      handleLocation();
+    }
+    
+    window.addEventListener('popstate', handleLocation);
+    return () => window.removeEventListener('popstate', handleLocation);
+  }, []);
 
   // Effect to persist view state
   useEffect(() => {
@@ -4107,6 +4112,7 @@ function App() {
   };
 
   const goHome = () => {
+    window.history.pushState({}, '', '/');
     setSelectedProductView(null);
     setSelectedCategory(null);
     setIsWishlistPageActive(false);
@@ -4118,6 +4124,7 @@ function App() {
   };
 
   const goToProducts = () => {
+    window.history.pushState({}, '', '/products');
     setSelectedProductView(null);
     setSelectedCategory(null);
     setIsWishlistPageActive(false);
@@ -4129,6 +4136,7 @@ function App() {
   };
 
   const goToContact = () => {
+    window.history.pushState({}, '', '/contact');
     setSelectedProductView(null);
     setSelectedCategory(null);
     setIsWishlistPageActive(false);
@@ -4140,6 +4148,7 @@ function App() {
   };
 
   const goToAbout = () => {
+    window.history.pushState({}, '', '/about');
     setSelectedProductView(null);
     setSelectedCategory(null);
     setIsWishlistPageActive(false);
@@ -4151,6 +4160,7 @@ function App() {
   };
 
   const goToCatalogue = () => {
+    window.history.pushState({}, '', '/catalogue');
     setSelectedProductView(null);
     setSelectedCategory(null);
     setIsWishlistPageActive(false);
@@ -4238,6 +4248,7 @@ function App() {
         onContactClick={goToContact}
         onWishlistClick={() => {
           if (!currentUser) { setIsAuthModalOpen(true); return; }
+          window.history.pushState({}, '', '/wishlist');
           setSelectedProductView(null); setSelectedCategory(null);
           setIsCartPageActive(false); setIsContactPageActive(false);
           setIsProductsPageActive(false); setIsWishlistPageActive(true);
@@ -4245,6 +4256,7 @@ function App() {
         }}
         onCartClick={() => {
           if (!currentUser) { setIsAuthModalOpen(true); return; }
+          window.history.pushState({}, '', '/cart');
           setSelectedProductView(null); setSelectedCategory(null);
           setIsWishlistPageActive(false); setIsContactPageActive(false);
           setIsProductsPageActive(false); setIsCartPageActive(true);
