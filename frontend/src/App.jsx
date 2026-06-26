@@ -3643,8 +3643,7 @@ const AdminDashboard = ({ onLogout, products, setProducts }) => {
   );
 };
 
-const ProductsPage = ({ products, currentUser, onProductClick, onCartClick, onLikeClick }) => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+const ProductsPage = ({ products, currentUser, onProductClick, onCartClick, onLikeClick, selectedCategory = "All", onCategoryChange }) => {
   const [absoluteMaxPrice, setAbsoluteMaxPrice] = useState(10000);
   const [priceMax, setPriceMax] = useState(10000);
   const [sortBy, setSortBy] = useState("Featured");
@@ -3732,7 +3731,7 @@ const ProductsPage = ({ products, currentUser, onProductClick, onCartClick, onLi
                 return (
                   <div key={i} className="category-group">
                     <button
-                      onClick={() => setSelectedCategory(cat)}
+                      onClick={() => onCategoryChange && onCategoryChange(cat)}
                       className={`category-filter-btn ${selectedCategory === cat ? 'active' : ''}`}
                     >
                       <span>{cat}</span>
@@ -3745,7 +3744,7 @@ const ProductsPage = ({ products, currentUser, onProductClick, onCartClick, onLi
                         {subCats.map((sub, j) => (
                           <button
                             key={j}
-                            onClick={() => setSelectedCategory(sub)}
+                            onClick={() => onCategoryChange && onCategoryChange(sub)}
                             className={`subcategory-filter-btn ${selectedCategory === sub ? 'active' : ''}`}
                           >
                             {sub}
@@ -3852,52 +3851,94 @@ function App() {
     } catch { return null; }
   });
   const [selectedCategory, setSelectedCategory] = useState(() => {
+    const path = window.location.pathname;
+    if (path.startsWith('/category/')) {
+      try {
+        return decodeURIComponent(path.substring('/category/'.length));
+      } catch {
+        return null;
+      }
+    }
     return sessionStorage.getItem('elysian_selected_category') || null;
   });
   const [isWishlistPageActive, setIsWishlistPageActive] = useState(() => {
+    if (window.location.pathname === '/wishlist') return true;
     return sessionStorage.getItem('elysian_wishlist_active') === 'true';
   });
   const [isCartPageActive, setIsCartPageActive] = useState(() => {
+    if (window.location.pathname === '/cart') return true;
     return sessionStorage.getItem('elysian_cart_active') === 'true';
   });
   const [isContactPageActive, setIsContactPageActive] = useState(() => {
+    if (window.location.pathname === '/contact') return true;
     return sessionStorage.getItem('elysian_contact_active') === 'true';
   });
   const [isAboutPageActive, setIsAboutPageActive] = useState(() => {
+    if (window.location.pathname === '/about') return true;
     return sessionStorage.getItem('elysian_about_active') === 'true';
   });
   const [isProductsPageActive, setIsProductsPageActive] = useState(() => {
+    if (window.location.pathname === '/products') return true;
     return sessionStorage.getItem('elysian_products_active') === 'true';
   });
   const [isCataloguePageActive, setIsCataloguePageActive] = useState(() => {
+    if (window.location.pathname === '/catalogue') return true;
     return sessionStorage.getItem('elysian_catalogue_active') === 'true';
   });
   const [cartAnimation, setCartAnimation] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
-  useEffect(() => {
-    const handleLocation = () => {
-      const path = window.location.pathname;
-      if (path === '/about') {
-        setIsAboutPageActive(true); setIsProductsPageActive(false); setIsContactPageActive(false); setIsCataloguePageActive(false);
-      } else if (path === '/products') {
-        setIsProductsPageActive(true); setIsAboutPageActive(false); setIsContactPageActive(false); setIsCataloguePageActive(false);
-      } else if (path === '/contact') {
-        setIsContactPageActive(true); setIsAboutPageActive(false); setIsProductsPageActive(false); setIsCataloguePageActive(false);
-      } else if (path === '/catalogue') {
-        setIsCataloguePageActive(true); setIsAboutPageActive(false); setIsProductsPageActive(false); setIsContactPageActive(false);
-      } else if (path === '/') {
-        setIsAboutPageActive(false); setIsProductsPageActive(false); setIsContactPageActive(false); setIsCataloguePageActive(false);
+  const handleLocation = () => {
+    const path = window.location.pathname;
+    
+    let isAbout = false;
+    let isProducts = false;
+    let isContact = false;
+    let isCatalogue = false;
+    let isWishlist = false;
+    let isCart = false;
+    let category = null;
+
+    if (path === '/about') {
+      isAbout = true;
+    } else if (path === '/products') {
+      isProducts = true;
+    } else if (path === '/contact') {
+      isContact = true;
+    } else if (path === '/catalogue') {
+      isCatalogue = true;
+    } else if (path === '/wishlist') {
+      isWishlist = true;
+    } else if (path === '/cart') {
+      isCart = true;
+    } else if (path.startsWith('/category/')) {
+      try {
+        category = decodeURIComponent(path.substring('/category/'.length));
+      } catch {
+        category = '';
       }
-    };
-    
-    if (window.location.pathname !== '/') {
-      handleLocation();
     }
-    
+
+    setIsAboutPageActive(isAbout);
+    setIsProductsPageActive(isProducts);
+    setIsContactPageActive(isContact);
+    setIsCataloguePageActive(isCatalogue);
+    setIsWishlistPageActive(isWishlist);
+    setIsCartPageActive(isCart);
+    setSelectedCategory(category);
+    setSelectedProductView(null);
+  };
+
+  useEffect(() => {
+    handleLocation();
     window.addEventListener('popstate', handleLocation);
     return () => window.removeEventListener('popstate', handleLocation);
   }, []);
+
+  const navigate = (path) => {
+    window.history.pushState({}, '', path);
+    handleLocation();
+  };
 
   // Effect to persist view state
   useEffect(() => {
@@ -4111,65 +4152,14 @@ function App() {
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
-  const goHome = () => {
-    window.history.pushState({}, '', '/');
-    setSelectedProductView(null);
-    setSelectedCategory(null);
-    setIsWishlistPageActive(false);
-    setIsCartPageActive(false);
-    setIsContactPageActive(false);
-    setIsAboutPageActive(false);
-    setIsProductsPageActive(false);
-    setIsCataloguePageActive(false);
-  };
-
-  const goToProducts = () => {
-    window.history.pushState({}, '', '/products');
-    setSelectedProductView(null);
-    setSelectedCategory(null);
-    setIsWishlistPageActive(false);
-    setIsCartPageActive(false);
-    setIsContactPageActive(false);
-    setIsAboutPageActive(false);
-    setIsCataloguePageActive(false);
-    setIsProductsPageActive(true);
-  };
-
-  const goToContact = () => {
-    window.history.pushState({}, '', '/contact');
-    setSelectedProductView(null);
-    setSelectedCategory(null);
-    setIsWishlistPageActive(false);
-    setIsCartPageActive(false);
-    setIsProductsPageActive(false);
-    setIsAboutPageActive(false);
-    setIsCataloguePageActive(false);
-    setIsContactPageActive(true);
-  };
-
-  const goToAbout = () => {
-    window.history.pushState({}, '', '/about');
-    setSelectedProductView(null);
-    setSelectedCategory(null);
-    setIsWishlistPageActive(false);
-    setIsCartPageActive(false);
-    setIsProductsPageActive(false);
-    setIsContactPageActive(false);
-    setIsCataloguePageActive(false);
-    setIsAboutPageActive(true);
-  };
-
-  const goToCatalogue = () => {
-    window.history.pushState({}, '', '/catalogue');
-    setSelectedProductView(null);
-    setSelectedCategory(null);
-    setIsWishlistPageActive(false);
-    setIsCartPageActive(false);
-    setIsProductsPageActive(false);
-    setIsContactPageActive(false);
-    setIsAboutPageActive(false);
-    setIsCataloguePageActive(true);
-  };
+  const goHome = () => navigate('/');
+  const goToProducts = () => navigate('/products');
+  const goToContact = () => navigate('/contact');
+  const goToAbout = () => navigate('/about');
+  const goToCatalogue = () => navigate('/catalogue');
+  const goToWishlist = () => navigate('/wishlist');
+  const goToCart = () => navigate('/cart');
+  const goToCategory = (cat) => navigate(cat && cat !== 'All' ? `/category/${encodeURIComponent(cat)}` : '/products');
 
   // Sync user data on load if logged in
   useEffect(() => {
@@ -4248,19 +4238,11 @@ function App() {
         onContactClick={goToContact}
         onWishlistClick={() => {
           if (!currentUser) { setIsAuthModalOpen(true); return; }
-          window.history.pushState({}, '', '/wishlist');
-          setSelectedProductView(null); setSelectedCategory(null);
-          setIsCartPageActive(false); setIsContactPageActive(false);
-          setIsProductsPageActive(false); setIsWishlistPageActive(true);
-          setIsCataloguePageActive(false);
+          goToWishlist();
         }}
         onCartClick={() => {
           if (!currentUser) { setIsAuthModalOpen(true); return; }
-          window.history.pushState({}, '', '/cart');
-          setSelectedProductView(null); setSelectedCategory(null);
-          setIsWishlistPageActive(false); setIsContactPageActive(false);
-          setIsProductsPageActive(false); setIsCartPageActive(true);
-          setIsCataloguePageActive(false);
+          goToCart();
         }}
       />
 
@@ -4307,27 +4289,11 @@ function App() {
           currentUser={currentUser}
           loading={loading}
           onProductClick={(product) => setSelectedProductView(product)}
-          onBack={() => setIsWishlistPageActive(false)}
+          onBack={goHome}
           onLikeClick={handleLikeClick}
           onCartClick={handleCartClick}
         />
-      ) : selectedCategory ? (
-        <CategoryPage
-          category={selectedCategory}
-          products={products.map(p => ({
-            ...p,
-            liked: currentUser?.likedProducts?.some(liked => {
-              const likedId = (typeof liked === 'string' ? liked : (liked?._id || liked?.id || liked))?.toString();
-              return likedId === (p.id || p._id)?.toString();
-            })
-          }))}
-          loading={loading}
-          onProductClick={(product) => { setSelectedProductView(product); }}
-          onBack={() => setSelectedCategory(null)}
-          onLikeClick={handleLikeClick}
-          onCartClick={handleCartClick}
-        />
-      ) : isProductsPageActive ? (
+      ) : (selectedCategory || isProductsPageActive) ? (
         <ProductsPage
           products={products.map(p => ({
             ...p,
@@ -4342,11 +4308,13 @@ function App() {
           onBack={goHome}
           onLikeClick={handleLikeClick}
           onCartClick={handleCartClick}
+          selectedCategory={selectedCategory || "All"}
+          onCategoryChange={goToCategory}
         />
       ) : (
         <>
           <Hero />
-          <Categories onCategoryClick={setSelectedCategory} products={products} />
+          <Categories onCategoryClick={goToCategory} products={products} />
           <Features />
           <FeaturedProducts
             products={products.map(p => ({
@@ -4358,7 +4326,7 @@ function App() {
             }))}
             loading={loading}
             onProductClick={setSelectedProductView}
-            onCategoryClick={setSelectedCategory}
+            onCategoryClick={goToCategory}
             onLikeClick={handleLikeClick}
             onCartClick={handleCartClick}
           />
